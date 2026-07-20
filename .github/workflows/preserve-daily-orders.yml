@@ -1,0 +1,57 @@
+name: Preserve daily orders
+
+on:
+  schedule:
+    # During Eastern Daylight Time, these are 10:30 PM and 11:30 PM.
+    - cron: "30 2 * * *"
+    - cron: "30 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: preserve-daily-orders
+  cancel-in-progress: false
+
+jobs:
+  preserve:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the data review branch
+        uses: actions/checkout@v4
+        with:
+          ref: daily-orders
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run safety tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Download, validate, hash, and preserve orders
+        run: python src/preserve_daily_orders.py
+
+      - name: Commit a new daily capture
+        shell: bash
+        run: |
+          if [[ -z "$(git status --porcelain -- data/raw/orders)" ]]; then
+            echo "This order date was already preserved; there is nothing to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- data/raw/orders
+
+          if git diff --cached --quiet; then
+            echo "There are no staged data changes."
+            exit 0
+          fi
+
+          git commit -m "Preserve daily orders"
+          git push origin HEAD:daily-orders
