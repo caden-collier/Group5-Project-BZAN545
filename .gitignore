@@ -1,3 +1,6 @@
 credentials.json
 .venv/
 __pycache__/
+Milestone_03/.venv/
+credentials.json
+__pycache__/
