@@ -1,0 +1,75 @@
+import csv
+from datetime import datetime, timezone
+from pathlib import Path
+
+from src.preserve_daily_orders import (
+    download_orders,
+    preserve_orders_bytes,
+    PreservationError,
+)
+
+LOG_PATH = Path("data/logs/ingestion_log.csv")
+LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+
+def append_log(row):
+    """Append a row to the ingestion log CSV."""
+    file_exists = LOG_PATH.exists()
+
+    with LOG_PATH.open("a", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+
+        if not file_exists:
+            writer.writerow([
+                "timestamp_utc",
+                "order_date",
+                "status",
+                "row_count",
+                "file_size_bytes",
+                "sha256",
+                "error_message",
+            ])
+
+        writer.writerow(row)
+
+
+def run_ingestion():
+    timestamp = datetime.now(timezone.utc).isoformat()
+
+    try:
+        data = download_orders()
+        facts = preserve_orders_bytes(data)
+
+        append_log([
+            timestamp,
+            facts.order_date,
+            "success",
+            facts.row_count,
+            facts.file_size_bytes,
+            facts.sha256,
+            "",
+        ])
+
+        print("Ingestion successful.")
+        print(f"Order date: {facts.order_date}")
+        print(f"Rows: {facts.row_count}")
+        print(f"Bytes: {facts.file_size_bytes}")
+        print(f"SHA-256: {facts.sha256}")
+
+    except PreservationError as exc:
+        append_log([
+            timestamp,
+            "",
+            "failure",
+            "",
+            "",
+            "",
+            str(exc),
+        ])
+
+        print("Ingestion failed.")
+        print(f"Error: {exc}")
+
+
+if __name__ == "__main__":
+    run_ingestion()
