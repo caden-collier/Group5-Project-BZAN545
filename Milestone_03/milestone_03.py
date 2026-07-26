@@ -251,3 +251,17 @@ with engine.begin() as connection:
             TO 'ccoll108'@'%.utk.edu'
         """)
     )
+
+
+
+with engine.begin() as connection:
+    connection.execute(
+        text("""
+          GRANT SELECT
+          ON `ltk528_bzan545`.*
+          TO 'aspannba'@'%.utk.edu'
+        """)
+    )
+    
+
+    display(orders_with_stores_and_products.head(3))
