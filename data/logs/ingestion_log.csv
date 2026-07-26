@@ -1,3 +1,6 @@
 timestamp_utc,order_date,status,row_count,file_size_bytes,sha256,error_message
 2026-07-24T04:37:02.015505+00:00,2026-07-23,success,140,8566,ebea094065d1da0fe7ca3652ff29d658a04e0c2bdeec84901805a8df2f7af759,
 2026-07-24T04:46:12.162577+00:00,2026-07-23,success,140,8566,ebea094065d1da0fe7ca3652ff29d658a04e0c2bdeec84901805a8df2f7af759,
+2026-07-24T13:05:26.181827+00:00,2026-07-23,success,140,8566,ebea094065d1da0fe7ca3652ff29d658a04e0c2bdeec84901805a8df2f7af759,
+2026-07-26T17:53:59.329350+00:00,,failure,,,,"Could not download orders file: <urlopen error [WinError 10060] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond>"
+2026-07-26T17:55:31.057718+00:00,,failure,,,,"Could not download orders file: <urlopen error [WinError 10060] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond>"
