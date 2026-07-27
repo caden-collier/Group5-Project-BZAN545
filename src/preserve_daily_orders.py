@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 # URL for the daily orders file
-ORDERS_URL = "https://tiny.utk.edu/RToutfitters/daily/orders.csv"
+ORDERS_URL = "https://raw.githubusercontent.com/AdamSpannbauer/su26-bzan545-current-orders/refs/heads/master/orders.csv"
 
 # Expected columns in the CSV
 EXPECTED_COLUMNS = (
