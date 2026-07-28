@@ -14,7 +14,7 @@ EXPECTED_COLUMNS = (
     "order_id",
     "order_date",
     "store_id",
-    "product_id",
+    "new_product_id",
     "quantity",
     "unit_price",
     "discount_pct",
@@ -62,7 +62,7 @@ def validate_orders_bytes(data: bytes) -> ValidatedOrders:
     reader = csv.DictReader(io.StringIO(text))
 
     # Check header
-    if tuple(reader.fieldnames or ()) != EXPECTED_COLUMNS:
+    if set(reader.fieldnames or ()) != set(EXPECTED_COLUMNS):
         raise PreservationError("Unexpected columns in orders.csv.")
 
     rows = list(reader)

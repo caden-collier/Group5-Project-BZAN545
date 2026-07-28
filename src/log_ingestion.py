@@ -2,7 +2,7 @@ import csv
 from datetime import datetime, timezone
 from pathlib import Path
 
-from src.preserve_daily_orders import (
+from preserve_daily_orders import (
     download_orders,
     preserve_orders_bytes,
     PreservationError,
@@ -11,9 +11,28 @@ from src.preserve_daily_orders import (
 LOG_PATH = Path("data/logs/ingestion_log.csv")
 LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
 
+LOG_PATH = Path("data/logs/ingestion_log.csv")
+LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+def process_orders_bytes(orders_bytes):
+    """Decode, validate, and extract facts from raw CSV bytes."""
+    try:
+        facts = preserve_orders_bytes(orders_bytes)
+        return facts
+    except PreservationError as exc:
+        raise exc
+
+
+def ingest_from_raw(path):
+    """Replay ingestion using an already-downloaded raw file."""
+    with open(path, "rb") as f:
+        orders_bytes = f.read()
+    return process_orders_bytes(orders_bytes)
+
 
 def append_log(row):
     """Append a row to the ingestion log CSV."""
+    print("Writing to:", LOG_PATH.resolve())
     file_exists = LOG_PATH.exists()
 
     with LOG_PATH.open("a", newline="", encoding="utf-8") as f:
@@ -73,3 +92,8 @@ def run_ingestion():
 
 if __name__ == "__main__":
     run_ingestion()
+
+
+
+
+

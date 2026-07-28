@@ -1,7 +1,13 @@
-timestamp_utc,order_date,status,row_count,file_size_bytes,sha256,error_message
-2026-07-24T04:37:02.015505+00:00,2026-07-23,success,140,8566,ebea094065d1da0fe7ca3652ff29d658a04e0c2bdeec84901805a8df2f7af759,
-2026-07-24T04:46:12.162577+00:00,2026-07-23,success,140,8566,ebea094065d1da0fe7ca3652ff29d658a04e0c2bdeec84901805a8df2f7af759,
-2026-07-26T21:03:58.383465+00:00,,failure,,,,"Could not download orders file: <urlopen error [WinError 10060] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond>"
-2026-07-27T14:47:23.749012+00:00,,failure,,,,"Could not download orders file: <urlopen error [WinError 10060] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond>"
-2026-07-27T14:50:51.122363+00:00,2026-07-27,success,98,6027,4ee1b71ad9dc5236c696ab1f9ac0fd3039be92625d458714d54614011af4ba23,
-2026-07-28T13:59:42.507131+00:00,,failure,,,,Unexpected columns in orders.csv.
+timestamp_utc,order_date,status,row_count,file_size_bytes,sha256,error_message,sort_date
+2026-07-28 16:37:39.119646+00:00,2026-07-12,success,104.0,6375.0,de84c9cecf40cdc6b9cac3bb5c42a3a0c3d4b53a09091e68baac07804b00985c,,2026-07-12
+2026-07-28 16:37:39.121345+00:00,2026-07-19,success,167.0,10154.0,2b4736cc42bed4cddadb9c21bb6dae1fc8eb31c2ec20118a8af52fb2845f2245,,2026-07-19
+2026-07-28 16:37:39.122831+00:00,2026-07-20,success,144.0,8727.0,da97a8412602c33b6291473576f06b3463548b3e60d9eef8f2a7b2149cfcfc48,,2026-07-20
+2026-07-28 16:37:39.124671+00:00,2026-07-21,success,91.0,5606.0,215c56d5514b24443613ae8b30db1aa27aac06214f1c12a03a85f0ff47da7078,,2026-07-21
+2026-07-28 16:37:39.126135+00:00,2026-07-22,success,162.0,9849.0,3eaa72095265f83ea045ec88c1ecdf54dbb7c16cf1253adecabc5ed50e27b9c5,,2026-07-22
+2026-07-28 16:37:39.127824+00:00,2026-07-23,success,140.0,8566.0,ebea094065d1da0fe7ca3652ff29d658a04e0c2bdeec84901805a8df2f7af759,,2026-07-23
+2026-07-26 21:03:58.383465+00:00,,failure,,,,"Could not download orders file: <urlopen error [WinError 10060] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond>",2026-07-26
+2026-07-28 16:37:39.129978+00:00,2026-07-26,success,101.0,6172.0,211afe606ef31230baa25cf9371bc12b9e2dfc9eb897056cb241e0d1bc0972fa,,2026-07-26
+2026-07-27 14:47:23.749012+00:00,,failure,,,,"Could not download orders file: <urlopen error [WinError 10060] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond>",2026-07-27
+2026-07-28 16:37:39.132116+00:00,2026-07-27,success,98.0,6027.0,4ee1b71ad9dc5236c696ab1f9ac0fd3039be92625d458714d54614011af4ba23,,2026-07-27
+2026-07-28 17:14:33.047487+00:00,,failure,,,,Unexpected columns in orders.csv.,2026-07-28
+2026-07-28 17:20:05.132654+00:00,2026-07-28,success,101.0,6252.0,5711f4676998b10e354e7cb8f95def487e14c47fc7029ccd2ce1da13243f4f37,,2026-07-28
