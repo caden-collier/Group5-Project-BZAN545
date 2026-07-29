@@ -1,0 +1,123 @@
+{
+  "legacy_source": {
+    "path": "data/raw/products/2026-07-29/products.csv",
+    "row_count": 80,
+    "column_count": 9,
+    "columns": [
+      "product_id",
+      "product_name",
+      "category",
+      "subcategory",
+      "brand",
+      "base_price",
+      "margin_rate",
+      "launch_date",
+      "active"
+    ],
+    "semantic_columns_used": {
+      "id": "product_id",
+      "name": "product_name",
+      "brand": "brand",
+      "category": "category",
+      "subcategory": "subcategory",
+      "price": "base_price",
+      "margin": "margin_rate",
+      "launch_date": "launch_date",
+      "active": "active"
+    }
+  },
+  "new_source": {
+    "path": "data/raw/products/2026-07-29/new_products.csv",
+    "row_count": 80,
+    "column_count": 9,
+    "columns": [
+      "new_product_id",
+      "item_name",
+      "department",
+      "class",
+      "brand_name",
+      "msrp",
+      "gross_margin",
+      "launch_date",
+      "active"
+    ],
+    "semantic_columns_used": {
+      "id": "new_product_id",
+      "name": "item_name",
+      "brand": "brand_name",
+      "category": "department",
+      "subcategory": "class",
+      "price": "msrp",
+      "margin": "gross_margin",
+      "launch_date": "launch_date",
+      "active": "active"
+    }
+  },
+  "schema_changes": {
+    "removed_columns": [
+      "base_price",
+      "brand",
+      "category",
+      "margin_rate",
+      "product_id",
+      "product_name",
+      "subcategory"
+    ],
+    "added_columns": [
+      "brand_name",
+      "class",
+      "department",
+      "gross_margin",
+      "item_name",
+      "msrp",
+      "new_product_id"
+    ],
+    "shared_columns": [
+      "active",
+      "launch_date"
+    ]
+  },
+  "value_changes": {
+    "brand": {
+      "legacy_only_values": [
+        "Blue Ridge Works",
+        "Moss & Mile",
+        "Rocky Top Outfitters"
+      ],
+      "new_only_values": [
+        "Blue Ridge Outdoor Works",
+        "Moss and Mile",
+        "RTO House Brand"
+      ]
+    },
+    "category": {
+      "legacy_only_values": [
+        "emergency",
+        "hydration",
+        "outerwear"
+      ],
+      "new_only_values": [
+        "apparel",
+        "drinkware",
+        "preparedness"
+      ]
+    },
+    "subcategory": {
+      "legacy_only_values": [
+        "battery pack",
+        "rain shell"
+      ],
+      "new_only_values": [
+        "power storage",
+        "waterproof outerwear"
+      ]
+    }
+  },
+  "crosswalk_row_count": 80,
+  "status_counts": {
+    "matched_exact": 62,
+    "review_ambiguous": 9,
+    "review_duplicate_candidate": 8,
+    "review_low_confidence": 1
+  }
+}
