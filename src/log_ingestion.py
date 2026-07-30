@@ -72,6 +72,7 @@ def run_ingestion():
         print("Ingestion successful.")
         print(f"Order date: {facts.order_date}")
         print(f"Rows: {facts.row_count}")
+        print(f"Product key: {facts.product_id_column}")
         print(f"Bytes: {facts.file_size_bytes}")
         print(f"SHA-256: {facts.sha256}")
 

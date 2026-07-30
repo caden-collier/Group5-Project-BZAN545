@@ -9,8 +9,20 @@ from pathlib import Path
 # URL for the daily orders file
 ORDERS_URL = "https://raw.githubusercontent.com/AdamSpannbauer/su26-bzan545-current-orders/refs/heads/master/orders.csv"
 
-# Expected columns in the CSV
-EXPECTED_COLUMNS = (
+# The product-system migration changed only the product key in daily orders.
+# Accept both schemas so historical re-runs continue to work across the cutover.
+LEGACY_COLUMNS = (
+    "order_id",
+    "order_date",
+    "store_id",
+    "product_id",
+    "quantity",
+    "unit_price",
+    "discount_pct",
+    "sales_channel",
+    "loyalty_member",
+)
+MIGRATED_COLUMNS = (
     "order_id",
     "order_date",
     "store_id",
@@ -21,6 +33,7 @@ EXPECTED_COLUMNS = (
     "sales_channel",
     "loyalty_member",
 )
+ACCEPTED_COLUMNS = (LEGACY_COLUMNS, MIGRATED_COLUMNS)
 
 # Where raw orders should be stored
 RAW_ROOT = Path("data/raw/orders")
@@ -36,6 +49,7 @@ class ValidatedOrders:
     row_count: int
     sha256: str
     file_size_bytes: int
+    product_id_column: str
 
 
 def sha256_bytes(data: bytes) -> str:
@@ -62,8 +76,12 @@ def validate_orders_bytes(data: bytes) -> ValidatedOrders:
     reader = csv.DictReader(io.StringIO(text))
 
     # Check header
-    if set(reader.fieldnames or ()) != set(EXPECTED_COLUMNS):
-        raise PreservationError("Unexpected columns in orders.csv.")
+    actual_columns = tuple(reader.fieldnames or ())
+    if actual_columns not in ACCEPTED_COLUMNS:
+        raise PreservationError(
+            "Unexpected columns in orders.csv. Expected either the legacy "
+            "product_id schema or the migrated new_product_id schema."
+        )
 
     rows = list(reader)
     if not rows:
@@ -81,6 +99,11 @@ def validate_orders_bytes(data: bytes) -> ValidatedOrders:
         row_count=len(rows),
         sha256=sha256_bytes(data),
         file_size_bytes=len(data),
+        product_id_column=(
+            "new_product_id"
+            if actual_columns == MIGRATED_COLUMNS
+            else "product_id"
+        ),
     )
 
 
