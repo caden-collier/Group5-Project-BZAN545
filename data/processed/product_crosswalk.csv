@@ -1,0 +1,81 @@
+new_product_id,new_product_name,proposed_legacy_product_id,match_status,match_score,runner_up_legacy_product_id,runner_up_score,score_margin,compared_fields,review_note
+NP5001,SummitRunner Lightweight Jacket 200,P1001,matched_exact,0.7675,P1049,0.6763,0.0912,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5002,RidgeRover Mid Trail Shoes 201,P1002,matched_exact,0.9997,P1074,0.8860,0.1137,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5003,CreekRambler 2P Camp Chair 202,P1003,matched_exact,0.9995,P1051,0.9451,0.0544,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5004,Storm Nomad Compact Cooler 203,P1004,matched_exact,0.9938,P1052,0.9067,0.0871,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5005,EmberRunner Storm Kit Battery Pack 204,P1005,matched_exact,0.8343,P1053,0.7981,0.0362,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5006,Trail Rover 20oz Tumbler 205,P1006,matched_exact,0.9267,P1054,0.8657,0.0609,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5007,HearthRambler Storm proof Jacket 206,P1007,matched_exact,0.8325,P1055,0.7785,0.0540,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5008,CanyonNomad Waterproof Trail Shoes 207,P1008,matched_exact,0.9999,P1056,0.8922,0.1077,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5009,PineRunner 4P Tent 208,P1009,matched_exact,0.9286,P1057,0.8173,0.1113,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5010,VistaRover Deluxe Patio Heater 209,P1010,matched_exact,0.9998,P1058,0.9216,0.0782,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5011,BoulderRambler Rechargeable Flashlight 210,P1011,matched_exact,0.9285,P1059,0.8638,0.0647,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5012,CloudNomad 32oz Tumbler 211,P1012,matched_exact,0.9325,P1060,0.8837,0.0487,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5013,FieldRunner Packable Jacket 212,P1013,matched_exact,0.8117,P1061,0.7629,0.0488,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5014,SwitchbackRover Wide Trail Shoes 213,P1014,matched_exact,0.9990,P1062,0.9246,0.0744,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5015,MoonRambler Ultralight Camp Chair 214,P1015,matched_exact,0.9998,P1063,0.9047,0.0952,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5016,PeakNomad XL Cooler 215,P1016,matched_exact,0.9993,P1064,0.9340,0.0653,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5017,SummitRunner Mini Battery Pack 216,P1017,matched_exact,0.7894,P1065,0.7245,0.0648,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5018,RidgeRover Trail Tumbler 217,P1018,matched_exact,0.9327,P1066,0.8323,0.1004,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5019,CreekRambler Alpine Jacket 218,P1019,matched_exact,0.8382,P1067,0.7454,0.0928,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5020,Storm Nomad Approach Trail Shoes 219,P1020,matched_exact,0.9945,P1068,0.9151,0.0794,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5021,EmberRunner Basecamp Tent 220,P1021,matched_exact,0.9740,P1069,0.8615,0.1125,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5022,Trail Rover Weekend Patio Heater 221,P1022,matched_exact,0.9950,P1070,0.9127,0.0822,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5023,HearthRambler Expedition Flashlight 222,P1023,matched_exact,0.9279,P1071,0.8334,0.0944,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5024,CanyonNomad Travel Tumbler 223,P1024,matched_exact,0.9326,P1072,0.8685,0.0641,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5025,PineRunner Lightweight Jacket 224,P1025,matched_exact,0.7670,P1073,0.6964,0.0706,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5026,VistaRover Mid Trail Shoes 225,P1026,matched_exact,0.9996,P1074,0.9248,0.0748,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5027,BoulderRambler 2P Camp Chair 226,P1027,matched_exact,0.9996,P1075,0.9337,0.0659,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5028,CloudNomad Compact Cooler 227,P1028,matched_exact,0.9991,P1076,0.9434,0.0557,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5029,FieldRunner Storm Kit Battery Pack 228,P1029,matched_exact,0.8337,P1077,0.7505,0.0833,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5030,SwitchbackRover 20oz Tumbler 229,P1030,matched_exact,0.9328,P1078,0.8238,0.1090,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5031,MoonRambler Storm proof Jacket 230,P1031,matched_exact,0.8328,P1079,0.7353,0.0975,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5032,PeakNomad Waterproof Trail Shoes 231,P1032,matched_exact,0.9990,P1080,0.9050,0.0941,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5033,SummitRunner 4P Tent 232,P1033,matched_exact,0.9291,P1009,0.7667,0.1624,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5034,RidgeRover Deluxe Patio Heater 233,P1034,matched_exact,1.0000,P1058,0.8676,0.1324,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5035,CreekRambler Rechargeable Flashlight 234,P1035,matched_exact,0.9279,P1011,0.7995,0.1284,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5036,Storm Nomad 32oz Tumbler 235,P1036,matched_exact,0.9267,P1060,0.7789,0.1478,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5037,EmberRunner Packable Jacket 236,P1037,matched_exact,0.8116,P1061,0.7020,0.1095,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5038,Trail Rover Wide Trail Shoes 237,P1038,matched_exact,0.9942,P1014,0.8997,0.0946,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5039,HearthRambler Ultralight Camp Chair 238,P1039,matched_exact,0.9992,P1063,0.8452,0.1540,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5040,CanyonNomad XL Cooler 239,P1040,matched_exact,0.9996,P1016,0.8206,0.1791,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5041,PineRunner Mini Battery Pack 240,P1041,matched_exact,0.7894,P1017,0.6542,0.1352,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5042,VistaRover Trail Tumbler 241,P1042,matched_exact,0.9326,P1066,0.8143,0.1182,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5043,BoulderRambler Alpine Jacket 242,P1043,matched_exact,0.8379,P1019,0.6751,0.1628,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5044,CloudNomad Approach Trail Shoes 243,P1044,matched_exact,0.9993,P1020,0.8955,0.1038,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5045,FieldRunner Basecamp Tent 244,P1045,matched_exact,0.9736,P1069,0.8520,0.1216,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5046,SwitchbackRover Weekend Patio Heater 245,P1046,matched_exact,0.9994,P1070,0.8953,0.1042,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5047,MoonRambler Expedition Flashlight 246,P1047,matched_exact,0.9280,P1071,0.8123,0.1157,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5048,PeakNomad Travel Tumbler 247,P1048,matched_exact,0.9323,P1024,0.7951,0.1372,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5049,SummitRunner Lightweight Jacket 248,P1049,matched_exact,0.7676,P1001,0.6763,0.0912,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5050,RidgeRover Mid Trail Shoes 249,P1050,matched_exact,0.9997,P1002,0.8736,0.1260,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5051,CreekRambler 2P Camp Chair 250,P1051,matched_exact,0.9997,P1003,0.9450,0.0547,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5052,Storm Nomad Compact Cooler 251,P1052,matched_exact,0.9932,P1004,0.9071,0.0862,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5053,EmberRunner Storm Kit Battery Pack 252,P1053,matched_exact,0.8337,P1005,0.7991,0.0346,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5054,Trail Rover 20oz Tumbler 253,P1054,matched_exact,0.9262,P1006,0.8653,0.0608,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5055,HearthRambler Storm proof Jacket 254,P1055,matched_exact,0.8332,P1007,0.7788,0.0544,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5056,CanyonNomad Waterproof Trail Shoes 255,P1056,matched_exact,0.9990,P1080,0.9001,0.0990,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5057,PineRunner 4P Tent 256 Pro,P1057,review_low_confidence,0.8995,P1009,0.7907,0.1087,name|brand|category|subcategory|margin|launch_date|active|price,Best candidate is plausible but below the automatic-match threshold.
+NP5058,VistaRover-Deluxe-Patio-Heater-257,P1058,matched_exact,0.9975,P1010,0.9230,0.0745,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5059,BoulderRambler Rechargeable Flashlight 258 Pro,P1059,review_ambiguous,0.9117,P1011,0.8493,0.0624,name|brand|category|subcategory|margin|launch_date|active|price,Top candidates are too close; human confirmation is required.
+NP5060,CloudNomad-32oz-Tumbler-259,P1060,matched_exact,0.9311,P1012,0.8827,0.0485,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5061,FieldRunner Packable Jacket 260 Pro,P1061,review_ambiguous,0.7899,P1013,0.7419,0.0480,name|brand|category|subcategory|margin|launch_date|active|price,Top candidates are too close; human confirmation is required.
+NP5062,SwitchbackRover-Wide-Trail-Shoes-261,P1062,matched_exact,0.9987,P1014,0.9244,0.0743,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5063,MoonRambler Ultralight Camp Chair 262 Pro,P1063,review_ambiguous,0.9810,P1015,0.8872,0.0939,name|brand|category|subcategory|margin|launch_date|active|price,Top candidates are too close; human confirmation is required.
+NP5064,PeakNomad-XL-Cooler-263,P1064,matched_exact,0.9981,P1016,0.9346,0.0635,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5065,SummitRunner Mini Battery Pack 264 Pro,P1065,review_ambiguous,0.7692,P1017,0.7068,0.0623,name|brand|category|subcategory|margin|launch_date|active|price,Top candidates are too close; human confirmation is required.
+NP5066,RidgeRover-Trail-Tumbler-265,P1066,matched_exact,0.9322,P1018,0.8311,0.1011,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5067,CreekRambler Alpine Jacket 266 Pro,P1067,review_ambiguous,0.8143,P1019,0.7264,0.0879,name|brand|category|subcategory|margin|launch_date|active|price,Top candidates are too close; human confirmation is required.
+NP5068,StormNomad-Approach-Trail-Shoes-267,P1068,matched_exact,0.9981,P1020,0.9202,0.0779,name|brand|category|subcategory|margin|launch_date|active|price,Normalized product name matches exactly.
+NP5069,BoulderNomad Patio Heater,P1070,review_ambiguous,0.8575,P1046,0.8218,0.0357,name|brand|category|subcategory|margin|launch_date|active|price,Top candidates are too close; human confirmation is required.
+NP5070,FieldPacer Insulated Tumbler,P1072,review_ambiguous,0.7022,P1024,0.6617,0.0404,name|brand|category|subcategory|margin|launch_date|active|price,Top candidates are too close; human confirmation is required.
+NP5071,MoonScout Trail Shoes,P1074,review_ambiguous,0.8383,P1026,0.7879,0.0504,name|brand|category|subcategory|margin|launch_date|active|price,Top candidates are too close; human confirmation is required.
+NP5072,SummitRover Cooler,P1076,review_ambiguous,0.7650,P1052,0.7565,0.0085,name|brand|category|subcategory|margin|launch_date|active|price,Top candidates are too close; human confirmation is required.
+NP5073,FieldRunner Battery Pack,P1077,review_duplicate_candidate,0.7544,P1029,0.6883,0.0660,name|brand|category|subcategory|margin|launch_date|active|price,Legacy product P1077 is proposed for multiple new products; possible split or collision.
+NP5074,SwitchbackRover Insulated Tumbler,P1078,review_duplicate_candidate,0.8386,P1030,0.7509,0.0877,name|brand|category|subcategory|margin|launch_date|active|price,Legacy product P1078 is proposed for multiple new products; possible split or collision.
+NP5075,MoonRambler Rain Shell,P1079,review_duplicate_candidate,0.6645,P1031,0.5885,0.0760,name|brand|category|subcategory|margin|launch_date|active|price,Legacy product P1079 is proposed for multiple new products; possible split or collision.
+NP5076,PeakNomad Trail Shoes,P1080,review_duplicate_candidate,0.9052,P1032,0.8352,0.0700,name|brand|category|subcategory|margin|launch_date|active|price,Legacy product P1080 is proposed for multiple new products; possible split or collision.
+NP5077,FieldRunner Battery Pack Alt,P1077,review_duplicate_candidate,0.7489,P1029,0.6840,0.0649,name|brand|category|subcategory|margin|launch_date|active|price,Legacy product P1077 is proposed for multiple new products; possible split or collision.
+NP5078,SwitchbackRover Insulated Tumbler Alt,P1078,review_duplicate_candidate,0.8359,P1030,0.7479,0.0880,name|brand|category|subcategory|margin|launch_date|active|price,Legacy product P1078 is proposed for multiple new products; possible split or collision.
+NP5079,MoonRambler Rain Shell Alt,P1079,review_duplicate_candidate,0.6540,P1031,0.5781,0.0759,name|brand|category|subcategory|margin|launch_date|active|price,Legacy product P1079 is proposed for multiple new products; possible split or collision.
+NP5080,PeakNomad Trail Shoes Alt,P1080,review_duplicate_candidate,0.9014,P1032,0.8268,0.0746,name|brand|category|subcategory|margin|launch_date|active|price,Legacy product P1080 is proposed for multiple new products; possible split or collision.
