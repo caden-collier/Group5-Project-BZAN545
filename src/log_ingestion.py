@@ -11,9 +11,6 @@ from preserve_daily_orders import (
 LOG_PATH = Path("data/logs/ingestion_log.csv")
 LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
 
-LOG_PATH = Path("data/logs/ingestion_log.csv")
-LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
-
 def process_orders_bytes(orders_bytes):
     """Decode, validate, and extract facts from raw CSV bytes."""
     try:
@@ -35,8 +32,9 @@ def append_log(row):
     print("Writing to:", LOG_PATH.resolve())
     file_exists = LOG_PATH.exists()
 
+    # Back to normal CSV behavior (no forced quotes)
     with LOG_PATH.open("a", newline="", encoding="utf-8") as f:
-        writer = csv.writer(f)
+        writer = csv.writer(f, quoting=csv.QUOTE_MINIMAL)
 
         if not file_exists:
             writer.writerow([
@@ -47,6 +45,7 @@ def append_log(row):
                 "file_size_bytes",
                 "sha256",
                 "error_message",
+                "sort_date",
             ])
 
         writer.writerow(row)
@@ -67,6 +66,7 @@ def run_ingestion():
             facts.file_size_bytes,
             facts.sha256,
             "",
+            "",  # sort_date left blank intentionally
         ])
 
         print("Ingestion successful.")
@@ -84,6 +84,7 @@ def run_ingestion():
             "",
             "",
             str(exc),
+            "",  # sort_date left blank intentionally
         ])
 
         print("Ingestion failed.")
@@ -92,8 +93,3 @@ def run_ingestion():
 
 if __name__ == "__main__":
     run_ingestion()
-
-
-
-
-
