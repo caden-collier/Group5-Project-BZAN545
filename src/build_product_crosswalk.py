@@ -462,7 +462,7 @@ def main() -> None:
     parser.add_argument(
         "--report",
         type=Path,
-        default=Path("Milestone_06/Canvas_Submission.md"),
+        default=Path("docs/milestones/milestone_06/Canvas_Submission.md"),
     )
     args = parser.parse_args()
 

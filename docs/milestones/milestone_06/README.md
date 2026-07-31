@@ -35,7 +35,7 @@ The generated milestone evidence is:
 
 - `data/processed/product_crosswalk.csv`
 - `data/processed/product_crosswalk_summary.json`
-- `Milestone_06/Canvas_Submission.md`
+- `docs/milestones/milestone_06/Canvas_Submission.md`
 
 ## Match-status policy
 
