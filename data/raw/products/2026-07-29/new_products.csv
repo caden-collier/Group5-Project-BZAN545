@@ -1,0 +1,81 @@
+new_product_id,item_name,department,class,brand_name,msrp,gross_margin,launch_date,active
+NP5001,SummitRunner Lightweight Jacket 200,apparel,waterproof outerwear,RTO House Brand,129.77,0.54,2019-01-01,Y
+NP5002,RidgeRover Mid Trail Shoes 201,footwear,trail shoes,Highland Ember,205.57,0.42,2020-02-02,Y
+NP5003,CreekRambler 2P Camp Chair 202,camping,camp chair,Creekline,441.63,0.32,2021-03-03,Y
+NP5004,Storm Nomad Compact Cooler 203,patio,cooler,Moss and Mile,108.96,0.31,2022-04-04,Y
+NP5005,EmberRunner Storm Kit Battery Pack 204,preparedness,power storage,Blue Ridge Outdoor Works,112.37,0.44,2023-05-05,Y
+NP5006,Trail Rover 20oz Tumbler 205,drinkware,insulated tumbler,Summit Finch,55.38,0.54,2024-06-06,Y
+NP5007,HearthRambler Storm proof Jacket 206,apparel,waterproof outerwear,Switchback Supply,109.09,0.43,2025-07-07,Y
+NP5008,CanyonNomad Waterproof Trail Shoes 207,footwear,trail shoes,TrailForge,175.19,0.47,2019-08-08,Y
+NP5009,PineRunner 4P Tent 208,camping,tent,RTO House Brand,118.72,0.32,2020-09-09,Y
+NP5010,VistaRover Deluxe Patio Heater 209,patio,patio heater,Highland Ember,555.58,0.32,2021-10-10,Y
+NP5011,BoulderRambler Rechargeable Flashlight 210,preparedness,flashlight,Creekline,132.66,0.35,2022-11-11,Y
+NP5012,CloudNomad 32oz Tumbler 211,drinkware,insulated tumbler,Moss and Mile,120.05,0.54,2023-12-12,Y
+NP5013,FieldRunner Packable Jacket 212,apparel,waterproof outerwear,Blue Ridge Outdoor Works,99.43,0.53,2024-01-13,Y
+NP5014,SwitchbackRover Wide Trail Shoes 213,footwear,trail shoes,Summit Finch,212.08,0.36,2025-02-14,Y
+NP5015,MoonRambler Ultralight Camp Chair 214,camping,camp chair,Switchback Supply,190.74,0.42,2019-03-15,Y
+NP5016,PeakNomad XL Cooler 215,patio,cooler,TrailForge,648.67,0.38,2020-04-16,Y
+NP5017,SummitRunner Mini Battery Pack 216,preparedness,power storage,RTO House Brand,63.28,0.37,2021-05-17,Y
+NP5018,RidgeRover Trail Tumbler 217,drinkware,insulated tumbler,Highland Ember,150.17,0.53,2022-06-18,Y
+NP5019,CreekRambler Alpine Jacket 218,apparel,waterproof outerwear,Creekline,179.93,0.5,2023-07-19,Y
+NP5020,Storm Nomad Approach Trail Shoes 219,footwear,trail shoes,Moss and Mile,207.39,0.43,2024-08-20,Y
+NP5021,EmberRunner Basecamp Tent 220,camping,tent,Blue Ridge Outdoor Works,73.7,0.35,2025-09-21,Y
+NP5022,Trail Rover Weekend Patio Heater 221,patio,patio heater,Summit Finch,387.51,0.39,2019-10-22,Y
+NP5023,HearthRambler Expedition Flashlight 222,preparedness,flashlight,Switchback Supply,144.84,0.4,2020-11-23,Y
+NP5024,CanyonNomad Travel Tumbler 223,drinkware,insulated tumbler,TrailForge,88.37,0.4,2021-12-24,Y
+NP5025,PineRunner Lightweight Jacket 224,apparel,waterproof outerwear,RTO House Brand,121.37,0.42,2022-01-01,Y
+NP5026,VistaRover Mid Trail Shoes 225,footwear,trail shoes,Highland Ember,128.7,0.45,2023-02-02,Y
+NP5027,BoulderRambler 2P Camp Chair 226,camping,camp chair,Creekline,93.13,0.3,2024-03-03,Y
+NP5028,CloudNomad Compact Cooler 227,patio,cooler,Moss and Mile,629.06,0.37,2025-04-04,Y
+NP5029,FieldRunner Storm Kit Battery Pack 228,preparedness,power storage,Blue Ridge Outdoor Works,122.43,0.47,2019-05-05,Y
+NP5030,SwitchbackRover 20oz Tumbler 229,drinkware,insulated tumbler,Summit Finch,128.56,0.47,2020-06-06,Y
+NP5031,MoonRambler Storm proof Jacket 230,apparel,waterproof outerwear,Switchback Supply,171.54,0.39,2021-07-07,Y
+NP5032,PeakNomad Waterproof Trail Shoes 231,footwear,trail shoes,TrailForge,200.43,0.42,2022-08-08,Y
+NP5033,SummitRunner 4P Tent 232,camping,tent,RTO House Brand,187.6,0.4,2023-09-09,Y
+NP5034,RidgeRover Deluxe Patio Heater 233,patio,patio heater,Highland Ember,168.67,0.4,2024-10-10,Y
+NP5035,CreekRambler Rechargeable Flashlight 234,preparedness,flashlight,Creekline,144.26,0.42,2025-11-11,Y
+NP5036,Storm Nomad 32oz Tumbler 235,drinkware,insulated tumbler,Moss and Mile,156.45,0.37,2019-12-12,Y
+NP5037,EmberRunner Packable Jacket 236,apparel,waterproof outerwear,Blue Ridge Outdoor Works,89.38,0.45,2020-01-13,Y
+NP5038,Trail Rover Wide Trail Shoes 237,footwear,trail shoes,Summit Finch,198.18,0.36,2021-02-14,Y
+NP5039,HearthRambler Ultralight Camp Chair 238,camping,camp chair,Switchback Supply,358.39,0.37,2022-03-15,Y
+NP5040,CanyonNomad XL Cooler 239,patio,cooler,TrailForge,107.52,0.26,2023-04-16,Y
+NP5041,PineRunner Mini Battery Pack 240,preparedness,power storage,RTO House Brand,53.54,0.48,2024-05-17,Y
+NP5042,VistaRover Trail Tumbler 241,drinkware,insulated tumbler,Highland Ember,112.36,0.46,2025-06-18,Y
+NP5043,BoulderRambler Alpine Jacket 242,apparel,waterproof outerwear,Creekline,237.41,0.39,2019-07-19,Y
+NP5044,CloudNomad Approach Trail Shoes 243,footwear,trail shoes,Moss and Mile,193.76,0.47,2020-08-20,Y
+NP5045,FieldRunner Basecamp Tent 244,camping,tent,Blue Ridge Outdoor Works,343.55,0.43,2021-09-21,Y
+NP5046,SwitchbackRover Weekend Patio Heater 245,patio,patio heater,Summit Finch,228.91,0.32,2022-10-22,Y
+NP5047,MoonRambler Expedition Flashlight 246,preparedness,flashlight,Switchback Supply,58.07,0.36,2023-11-23,Y
+NP5048,PeakNomad Travel Tumbler 247,drinkware,insulated tumbler,TrailForge,72.7,0.36,2024-12-24,Y
+NP5049,SummitRunner Lightweight Jacket 248,apparel,waterproof outerwear,RTO House Brand,223.44,0.55,2025-01-01,Y
+NP5050,RidgeRover Mid Trail Shoes 249,footwear,trail shoes,Highland Ember,74.44,0.36,2019-02-02,Y
+NP5051,CreekRambler 2P Camp Chair 250,camping,camp chair,Creekline,429.02,0.29,2020-03-03,Y
+NP5052,Storm Nomad Compact Cooler 251,patio,cooler,Moss and Mile,378.16,0.39,2021-04-04,Y
+NP5053,EmberRunner Storm Kit Battery Pack 252,preparedness,power storage,Blue Ridge Outdoor Works,111.73,0.44,2022-05-05,Y
+NP5054,Trail Rover 20oz Tumbler 253,drinkware,insulated tumbler,Summit Finch,72.66,0.47,2023-06-06,Y
+NP5055,HearthRambler Storm proof Jacket 254,apparel,waterproof outerwear,Switchback Supply,279.48,0.43,2024-07-07,Y
+NP5056,CanyonNomad Waterproof Trail Shoes 255,footwear,trail shoes,TrailForge,148.79,0.36,2025-08-08,Y
+NP5057,PineRunner 4P Tent 256 Pro,camping,tent,RTO House Brand,399.61,0.37,2019-09-09,Y
+NP5058,VistaRover-Deluxe-Patio-Heater-257,patio,patio heater,Highland Ember,287.12,0.36,2020-10-10,Y
+NP5059,BoulderRambler Rechargeable Flashlight 258 Pro,preparedness,flashlight,Creekline,108.91,0.37,2021-11-11,Y
+NP5060,CloudNomad-32oz-Tumbler-259,drinkware,insulated tumbler,Moss and Mile,166.65,0.54,2022-12-12,Y
+NP5061,FieldRunner Packable Jacket 260 Pro,apparel,waterproof outerwear,Blue Ridge Outdoor Works,154.19,0.53,2023-01-13,Y
+NP5062,SwitchbackRover-Wide-Trail-Shoes-261,footwear,trail shoes,Summit Finch,163.29,0.4,2024-02-14,Y
+NP5063,MoonRambler Ultralight Camp Chair 262 Pro,camping,camp chair,Switchback Supply,77.22,0.28,2025-03-15,Y
+NP5064,PeakNomad-XL-Cooler-263,patio,cooler,TrailForge,655.68,0.38,2019-04-16,Y
+NP5065,SummitRunner Mini Battery Pack 264 Pro,preparedness,power storage,RTO House Brand,107.67,0.35,2020-05-17,Y
+NP5066,RidgeRover-Trail-Tumbler-265,drinkware,insulated tumbler,Highland Ember,100.98,0.47,2021-06-18,Y
+NP5067,CreekRambler Alpine Jacket 266 Pro,apparel,waterproof outerwear,Creekline,247.56,0.46,2022-07-19,Y
+NP5068,StormNomad-Approach-Trail-Shoes-267,footwear,trail shoes,Moss and Mile,86.31,0.34,2023-08-20,Y
+NP5069,BoulderNomad Patio Heater,patio,patio heater,Summit Finch,221.25,0.3,2025-10-22,Y
+NP5070,FieldPacer Insulated Tumbler,drinkware,insulated tumbler,TrailForge,143.21,0.45,2020-12-24,Y
+NP5071,MoonScout Trail Shoes,footwear,trail shoes,Highland Ember,220.05,0.47,2022-02-02,Y
+NP5072,SummitRover Cooler,patio,cooler,Moss and Mile,795.23,0.33,2024-04-04,Y
+NP5073,FieldRunner Battery Pack,preparedness,power storage,Blue Ridge Outdoor Works,91.38,0.34,2025-05-05,Y
+NP5074,SwitchbackRover Insulated Tumbler,drinkware,insulated tumbler,Summit Finch,163.7,0.39,2019-06-06,Y
+NP5075,MoonRambler Rain Shell,apparel,waterproof outerwear,Switchback Supply,274.77,0.41,2020-07-07,Y
+NP5076,PeakNomad Trail Shoes,footwear,trail shoes,TrailForge,157.12,0.38,2021-08-08,Y
+NP5077,FieldRunner Battery Pack Alt,preparedness,power storage,Blue Ridge Outdoor Works,97.78,0.34,2025-05-05,Y
+NP5078,SwitchbackRover Insulated Tumbler Alt,drinkware,insulated tumbler,Summit Finch,151.56,0.39,2019-06-06,Y
+NP5079,MoonRambler Rain Shell Alt,apparel,waterproof outerwear,Switchback Supply,252.43,0.41,2020-07-07,Y
+NP5080,PeakNomad Trail Shoes Alt,footwear,trail shoes,TrailForge,138.14,0.38,2021-08-08,Y

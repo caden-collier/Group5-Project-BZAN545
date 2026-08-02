@@ -17,8 +17,8 @@ tests/                   Offline unit and integration-boundary tests
 tools/                   One-off document-generation utilities
 ```
 
-`Milestone_03/` is retained as historical coursework. Active pipeline code lives
-only in `src/bzan545/`.
+Historical coursework is retained in `docs/milestones/`. Active daily-pipeline
+code lives in `src/bzan545/`; supporting migration utilities remain in `src/`.
 
 ## Local setup and commands
 
