@@ -2,5 +2,7 @@ credentials.json
 .venv/
 __pycache__/
 Milestone_03/.venv/
-credentials.json
-__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.DS_Store

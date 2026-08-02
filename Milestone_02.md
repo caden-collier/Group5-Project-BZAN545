@@ -6,7 +6,7 @@
 - Rows captured: `104`
 - Columns captured: `9`
 - Raw file: `data/raw/orders/2026-07-12/orders.csv`
-- Inspection script: `src/inspect_orders.py`
+- Inspection command: `bzan545 inspect data/raw/orders/2026-07-12/orders.csv`
 
 ## Raw-file storage convention
 
@@ -20,7 +20,8 @@ its own directory so an earlier raw file is never overwritten.
 From the repository root, run:
 
 ```text
-python src/inspect_orders.py
+python -m pip install -e .
+bzan545 inspect data/raw/orders/2026-07-12/orders.csv
 ```
 
 The output reports the source path, row and column counts, column names, order
