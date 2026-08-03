@@ -10,7 +10,7 @@ from src.build_product_crosswalk import (
     normalize,
     parse_price,
 )
-from src.preserve_daily_orders import validate_orders_bytes
+from bzan545.orders import validate_orders_bytes
 
 
 class ProductCrosswalkTests(unittest.TestCase):

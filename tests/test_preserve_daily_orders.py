@@ -4,14 +4,16 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from src.preserve_daily_orders import (
-    EXPECTED_COLUMNS,
+from bzan545.orders import (
+    NEW_PRODUCT_ID_COLUMNS,
     PRODUCT_ID_COLUMNS,
     PreservationError,
     preserve_orders_bytes,
     sha256_bytes,
     validate_orders_bytes,
 )
+
+EXPECTED_COLUMNS = NEW_PRODUCT_ID_COLUMNS
 
 
 VALID_ROW = (

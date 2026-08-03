@@ -1,12 +1,24 @@
 [project]
 name = "group5-project-bzan545"
-version = "0.1.0"
-description = "Add your description here"
+version = "0.2.0"
+description = "Automated daily orders ingestion and store-weather enrichment"
 readme = "README.md"
-requires-python = ">=3.14"
+requires-python = ">=3.11"
 dependencies = [
-    "panda>=0.3.1",
     "pandas>=3.0.3",
-    "pymysql>=1.2.0",
-    "sqlalchemy>=2.0.51",
+    "pymysql>=1.1,<2",
+    "sqlalchemy>=2.0,<3",
 ]
+
+[project.scripts]
+bzan545 = "bzan545.cli:main"
+
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
