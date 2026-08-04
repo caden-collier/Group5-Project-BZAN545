@@ -8,8 +8,8 @@ match-status counts, and generates a short Canvas-ready response.
 
 The preserved source files show the product-key migration directly:
 
-- `data/raw/orders/2026-07-27/orders.csv`: 98 rows using `product_id`
-- `data/raw/orders/2026-07-28/orders.csv`: 101 rows using `new_product_id`
+- `data/bronze/orders/2026-07-27/orders.csv`: 98 rows using `product_id`
+- `data/bronze/orders/2026-07-28/orders.csv`: 101 rows using `new_product_id`
 
 The order ingestion validator now accepts either schema and reports which key it
 found. This preserves the historical files while allowing post-migration orders
@@ -22,19 +22,19 @@ to continue through the same ingestion process.
 2. Snapshot both source tables:
 
    ```text
-   python src/export_product_sources.py --snapshot-date 2026-07-29
+   python tools/export_product_sources.py --snapshot-date 2026-07-29
    ```
 
 3. Build the crosswalk, counts, schema comparison, and Canvas response:
 
    ```text
-   python src/build_product_crosswalk.py data/raw/products/2026-07-29/products.csv data/raw/products/2026-07-29/new_products.csv
+   python tools/build_product_crosswalk.py data/bronze/products/2026-07-29/products.csv data/bronze/products/2026-07-29/new_products.csv
    ```
 
 The generated milestone evidence is:
 
-- `data/processed/product_crosswalk.csv`
-- `data/processed/product_crosswalk_summary.json`
+- `data/silver/product_crosswalk.csv`
+- `data/silver/product_crosswalk_summary.json`
 - `docs/milestones/milestone_06/Canvas_Submission.md`
 
 ## Match-status policy

@@ -432,12 +432,12 @@ def write_report(
             "",
             "## Repository paths",
             "",
-            "- Crosswalk: `data/processed/product_crosswalk.csv`",
+            "- Crosswalk: `data/silver/product_crosswalk.csv`",
             "- Counts/schema summary: "
-            "`data/processed/product_crosswalk_summary.json`",
-            "- Source export: `src/export_product_sources.py`",
-            "- Crosswalk builder: `src/build_product_crosswalk.py`",
-            "- Migration-aware order ingestion: `src/preserve_daily_orders.py`",
+            "`data/silver/product_crosswalk_summary.json`",
+            "- Source export: `tools/export_product_sources.py`",
+            "- Crosswalk builder: `tools/build_product_crosswalk.py`",
+            "- Order ingestion: `src/bzan545/orders.py`",
             "",
         ]
     )
@@ -452,12 +452,12 @@ def main() -> None:
     parser.add_argument(
         "--output",
         type=Path,
-        default=Path("data/processed/product_crosswalk.csv"),
+        default=Path("data/silver/product_crosswalk.csv"),
     )
     parser.add_argument(
         "--summary",
         type=Path,
-        default=Path("data/processed/product_crosswalk_summary.json"),
+        default=Path("data/silver/product_crosswalk_summary.json"),
     )
     parser.add_argument(
         "--report",

@@ -9,7 +9,7 @@ from sqlalchemy import text
 # ---------------------------------------------------------
 
 orders = pd.read_csv(
-    "data/raw/orders/2026-07-12/orders.csv"
+    "data/bronze/orders/2026-07-12/orders.csv"
 )
 
 

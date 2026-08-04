@@ -1,6 +1,6 @@
 {
   "legacy_source": {
-    "path": "data/raw/products/2026-07-29/products.csv",
+    "path": "data/bronze/products/2026-07-29/products.csv",
     "row_count": 80,
     "column_count": 9,
     "columns": [
@@ -27,7 +27,7 @@
     }
   },
   "new_source": {
-    "path": "data/raw/products/2026-07-29/new_products.csv",
+    "path": "data/bronze/products/2026-07-29/new_products.csv",
     "row_count": 80,
     "column_count": 9,
     "columns": [

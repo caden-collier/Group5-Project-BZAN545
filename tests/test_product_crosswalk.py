@@ -4,13 +4,15 @@ from __future__ import annotations
 
 import unittest
 
-from src.build_product_crosswalk import (
+import pandas as pd
+
+from bzan545.config import BRONZE_DIR, SILVER_DIR
+from tools.build_product_crosswalk import (
     build_crosswalk,
     choose_columns,
     normalize,
     parse_price,
 )
-from bzan545.orders import validate_orders_bytes
 
 
 class ProductCrosswalkTests(unittest.TestCase):
@@ -80,17 +82,21 @@ class ProductCrosswalkTests(unittest.TestCase):
             )
         )
 
-    def test_migrated_order_schema_is_accepted(self) -> None:
-        migrated_csv = (
-            "order_id,order_date,store_id,new_product_id,quantity,unit_price,"
-            "discount_pct,sales_channel,loyalty_member\n"
-            "20260728-0001,2026-07-28,S008,NP5044,2,155.01,20,"
-            "ship_from_store,Y\n"
-        ).encode()
+    def test_real_crosswalk_covers_the_real_product_snapshot(self) -> None:
+        snapshot = BRONZE_DIR / "products" / "2026-07-29"
+        legacy = pd.read_csv(snapshot / "products.csv")
+        migrated = pd.read_csv(snapshot / "new_products.csv")
+        crosswalk = pd.read_csv(SILVER_DIR / "product_crosswalk.csv")
 
-        result = validate_orders_bytes(migrated_csv)
-
-        self.assertEqual(result.product_id_column, "new_product_id")
+        self.assertFalse(crosswalk["new_product_id"].duplicated().any())
+        self.assertEqual(
+            set(crosswalk["new_product_id"]), set(migrated["new_product_id"])
+        )
+        self.assertTrue(
+            set(crosswalk["proposed_legacy_product_id"])
+            <= set(legacy["product_id"])
+        )
+        self.assertTrue(crosswalk["match_score"].between(0, 1).all())
 
 
 if __name__ == "__main__":

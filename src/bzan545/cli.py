@@ -5,7 +5,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from .config import RAW_ORDERS_DIR
+from .config import BRONZE_ORDERS_DIR
 from .ingestion import replay_raw_ingestions, run_ingestion
 from .orders import inspect_orders
 from .pipeline import run_daily_pipeline
@@ -38,7 +38,7 @@ def main(argv: list[str] | None = None) -> int:
         inspect_orders(args.path)
         return 0
     if args.command == "replay":
-        _, failures = replay_raw_ingestions(raw_root=RAW_ORDERS_DIR)
+        _, failures = replay_raw_ingestions(bronze_root=BRONZE_ORDERS_DIR)
         return 1 if failures else 0
     if args.command == "weather":
         sync_weather(args.date)

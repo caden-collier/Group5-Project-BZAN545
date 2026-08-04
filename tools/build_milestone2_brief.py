@@ -277,7 +277,7 @@ def build_document():
             run.font.color.rgb = RGBColor(255, 255, 255)
             run.bold = True
     files = [
-        ("data/raw/orders/2026-07-12/orders.csv", "Untouched raw source file for the July 12 capture."),
+        ("data/bronze/orders/2026-07-12/orders.csv", "Untouched bronze source file for the July 12 capture."),
         ("src/inspect_orders.py", "Reads the CSV and prints rows, columns, dates, headers, and three sample records."),
         ("docs/milestones/milestone_02.md", "Records the verified facts, storage convention, and reproduction instructions."),
     ]
@@ -328,7 +328,7 @@ def build_document():
 
     doc.add_heading("Verified output", level=1)
     add_code_block(doc, [
-        "File: data/raw/orders/2026-07-12/orders.csv",
+        "File: data/bronze/orders/2026-07-12/orders.csv",
         "Rows: 104",
         "Columns: 9",
         "Column names: order_id, order_date, store_id, product_id, quantity,",
@@ -342,7 +342,7 @@ def build_document():
         "Future daily order files should be preserved unchanged under the following pattern:"
     )
     p.paragraph_format.keep_with_next = True
-    add_code_block(doc, ["data/raw/orders/YYYY-MM-DD/orders.csv"])
+    add_code_block(doc, ["data/bronze/orders/YYYY-MM-DD/orders.csv"])
     add_bullet(doc, "Use the date represented by the orders in the source file.")
     add_bullet(doc, "Create a separate dated directory for each daily pull.")
     add_bullet(doc, "Never edit or overwrite a file inside the raw directory.")
@@ -356,7 +356,7 @@ def build_document():
         ("Check the current situation", ["git status"]),
         ("Create a separate branch for this work", ["git switch -c milestone-02"]),
         ("Tell Git which three milestone items to include", [
-            "git add data/raw/orders/2026-07-12/orders.csv",
+            "git add data/bronze/orders/2026-07-12/orders.csv",
             "git add src/inspect_orders.py",
             "git add docs/milestones/milestone_02.md",
         ]),
@@ -394,7 +394,7 @@ def build_document():
     checklist = [
         "Order date represented: 2026-07-12.",
         "Dataset size: 104 rows and 9 columns.",
-        "Repository path: data/raw/orders/2026-07-12/orders.csv.",
+        "Repository path: data/bronze/orders/2026-07-12/orders.csv.",
         "Screenshot or pasted output showing the inspection script ran successfully.",
         "Brief note explaining the dated raw-file storage convention.",
     ]
