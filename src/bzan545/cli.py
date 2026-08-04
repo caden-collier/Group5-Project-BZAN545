@@ -5,7 +5,8 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from .config import RAW_ORDERS_DIR
+from .config import BRONZE_ORDERS_DIR
+from .crosswalk import build_crosswalk_files
 from .ingestion import replay_raw_ingestions, run_ingestion
 from .orders import inspect_orders
 from .pipeline import run_daily_pipeline
@@ -20,9 +21,14 @@ def build_parser() -> argparse.ArgumentParser:
         "--skip-weather", action="store_true", help="run orders ingestion only"
     )
     commands.add_parser("ingest", help="ingest orders and update the audit log")
-    inspect = commands.add_parser("inspect", help="validate and summarize a raw file")
+    inspect = commands.add_parser(
+        "inspect", help="validate and summarize a bronze orders file"
+    )
     inspect.add_argument("path", type=Path, help="path to an orders CSV")
-    commands.add_parser("replay", help="backfill log events from preserved raw orders")
+    commands.add_parser(
+        "replay", help="backfill log events from preserved bronze orders"
+    )
+    commands.add_parser("crosswalk", help="rebuild the silver product crosswalk")
     weather = commands.add_parser("weather", help="sync weather for an ISO date")
     weather.add_argument("date", help="order date in YYYY-MM-DD format")
     return parser
@@ -38,8 +44,11 @@ def main(argv: list[str] | None = None) -> int:
         inspect_orders(args.path)
         return 0
     if args.command == "replay":
-        _, failures = replay_raw_ingestions(raw_root=RAW_ORDERS_DIR)
+        _, failures = replay_raw_ingestions(bronze_root=BRONZE_ORDERS_DIR)
         return 1 if failures else 0
+    if args.command == "crosswalk":
+        build_crosswalk_files()
+        return 0
     if args.command == "weather":
         sync_weather(args.date)
         return 0

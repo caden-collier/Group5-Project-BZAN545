@@ -1,0 +1,81 @@
+new_product_id,new_product_name,proposed_legacy_product_id,proposed_legacy_product_name,match_status,match_score,runner_up_legacy_product_id,runner_up_score,review_note
+NP5001,SummitRunner Lightweight Jacket 200,P1001,SummitRunner Lightweight Jacket 200,exact_name_match,0.8792,P1049,0.7985,Normalized product names match.
+NP5002,RidgeRover Mid Trail Shoes 201,P1002,RidgeRover Mid Trail Shoes 201,review_required,0.999,P1050,0.89,Multiple new products propose this legacy product; confirm manually.
+NP5003,CreekRambler 2P Camp Chair 202,P1003,CreekRambler 2P Camp Chair 202,exact_name_match,0.9984,P1051,0.9727,Normalized product names match.
+NP5004,Storm Nomad Compact Cooler 203,P1004,StormNomad Compact Cooler 203,exact_name_match,0.9873,P1052,0.8687,Normalized product names match.
+NP5005,EmberRunner Storm Kit Battery Pack 204,P1005,EmberRunner Storm Kit Battery Pack 204,exact_name_match,0.9593,P1053,0.9197,Normalized product names match.
+NP5006,Trail Rover 20oz Tumbler 205,P1006,TrailRover 20oz Tumbler 205,exact_name_match,0.9863,P1054,0.9402,Normalized product names match.
+NP5007,HearthRambler Storm proof Jacket 206,P1007,HearthRambler Stormproof Jacket 206,exact_name_match,0.9872,P1055,0.89,Normalized product names match.
+NP5008,CanyonNomad Waterproof Trail Shoes 207,P1008,CanyonNomad Waterproof Trail Shoes 207,exact_name_match,0.9998,P1056,0.9454,Normalized product names match.
+NP5009,PineRunner 4P Tent 208,P1009,PineRunner 4P Tent 208,exact_name_match,0.8771,P1057,0.7453,Normalized product names match.
+NP5010,VistaRover Deluxe Patio Heater 209,P1010,VistaRover Deluxe Patio Heater 209,exact_name_match,0.9994,P1058,0.9063,Normalized product names match.
+NP5011,BoulderRambler Rechargeable Flashlight 210,P1011,BoulderRambler Rechargeable Flashlight 210,exact_name_match,0.9997,P1059,0.9462,Normalized product names match.
+NP5012,CloudNomad 32oz Tumbler 211,P1012,CloudNomad 32oz Tumbler 211,exact_name_match,0.9971,P1060,0.9259,Normalized product names match.
+NP5013,FieldRunner Packable Jacket 212,P1013,FieldRunner Packable Jacket 212,exact_name_match,0.9579,P1061,0.8821,Normalized product names match.
+NP5014,SwitchbackRover Wide Trail Shoes 213,P1014,SwitchbackRover Wide Trail Shoes 213,exact_name_match,0.9965,P1062,0.961,Normalized product names match.
+NP5015,MoonRambler Ultralight Camp Chair 214,P1015,MoonRambler Ultralight Camp Chair 214,review_required,0.9994,P1063,0.9041,Multiple new products propose this legacy product; confirm manually.
+NP5016,PeakNomad XL Cooler 215,P1016,PeakNomad XL Cooler 215,exact_name_match,0.9978,P1064,0.9339,Normalized product names match.
+NP5017,SummitRunner Mini Battery Pack 216,P1017,SummitRunner Mini Battery Pack 216,exact_name_match,0.8779,P1065,0.8155,Normalized product names match.
+NP5018,RidgeRover Trail Tumbler 217,P1018,RidgeRover Trail Tumbler 217,exact_name_match,0.9979,P1066,0.9198,Normalized product names match.
+NP5019,CreekRambler Alpine Jacket 218,P1019,CreekRambler Alpine Jacket 218,exact_name_match,0.9995,P1067,0.9207,Normalized product names match.
+NP5020,Storm Nomad Approach Trail Shoes 219,P1020,StormNomad Approach Trail Shoes 219,exact_name_match,0.9882,P1068,0.8897,Normalized product names match.
+NP5021,EmberRunner Basecamp Tent 220,P1021,EmberRunner Basecamp Tent 220,exact_name_match,0.9599,P1069,0.8405,Normalized product names match.
+NP5022,Trail Rover Weekend Patio Heater 221,P1022,TrailRover Weekend Patio Heater 221,exact_name_match,0.9898,P1070,0.903,Normalized product names match.
+NP5023,HearthRambler Expedition Flashlight 222,P1023,HearthRambler Expedition Flashlight 222,exact_name_match,0.9977,P1071,0.963,Normalized product names match.
+NP5024,CanyonNomad Travel Tumbler 223,P1024,CanyonNomad Travel Tumbler 223,exact_name_match,0.9975,P1072,0.9191,Normalized product names match.
+NP5025,PineRunner Lightweight Jacket 224,P1025,PineRunner Lightweight Jacket 224,exact_name_match,0.8774,P1073,0.8556,Normalized product names match.
+NP5026,VistaRover Mid Trail Shoes 225,P1026,VistaRover Mid Trail Shoes 225,exact_name_match,0.9987,P1074,0.9205,Normalized product names match.
+NP5027,BoulderRambler 2P Camp Chair 226,P1027,BoulderRambler 2P Camp Chair 226,exact_name_match,0.9988,P1075,0.9126,Normalized product names match.
+NP5028,CloudNomad Compact Cooler 227,P1028,CloudNomad Compact Cooler 227,exact_name_match,0.9971,P1076,0.9676,Normalized product names match.
+NP5029,FieldRunner Storm Kit Battery Pack 228,P1029,FieldRunner Storm Kit Battery Pack 228,exact_name_match,0.9572,P1077,0.9009,Normalized product names match.
+NP5030,SwitchbackRover 20oz Tumbler 229,P1030,SwitchbackRover 20oz Tumbler 229,exact_name_match,0.9982,P1078,0.9441,Normalized product names match.
+NP5031,MoonRambler Storm proof Jacket 230,P1031,MoonRambler Stormproof Jacket 230,exact_name_match,0.9884,P1079,0.9147,Normalized product names match.
+NP5032,PeakNomad Waterproof Trail Shoes 231,P1032,PeakNomad Waterproof Trail Shoes 231,exact_name_match,0.9968,P1080,0.9325,Normalized product names match.
+NP5033,SummitRunner 4P Tent 232,P1033,SummitRunner 4P Tent 232,exact_name_match,0.879,P1009,0.6588,Normalized product names match.
+NP5034,RidgeRover Deluxe Patio Heater 233,P1034,RidgeRover Deluxe Patio Heater 233,exact_name_match,0.9999,P1058,0.8405,Normalized product names match.
+NP5035,CreekRambler Rechargeable Flashlight 234,P1035,CreekRambler Rechargeable Flashlight 234,exact_name_match,0.9977,P1011,0.8727,Normalized product names match.
+NP5036,Storm Nomad 32oz Tumbler 235,P1036,StormNomad 32oz Tumbler 235,exact_name_match,0.9865,P1060,0.8587,Normalized product names match.
+NP5037,EmberRunner Packable Jacket 236,P1037,EmberRunner Packable Jacket 236,exact_name_match,0.9574,P1013,0.8163,Normalized product names match.
+NP5038,Trail Rover Wide Trail Shoes 237,P1038,TrailRover Wide Trail Shoes 237,exact_name_match,0.9882,P1014,0.8527,Normalized product names match.
+NP5039,HearthRambler Ultralight Camp Chair 238,P1039,HearthRambler Ultralight Camp Chair 238,exact_name_match,0.9974,P1015,0.8246,Normalized product names match.
+NP5040,CanyonNomad XL Cooler 239,P1040,CanyonNomad XL Cooler 239,exact_name_match,0.9988,P1024,0.7933,Normalized product names match.
+NP5041,PineRunner Mini Battery Pack 240,P1041,PineRunner Mini Battery Pack 240,exact_name_match,0.8781,P1017,0.7356,Normalized product names match.
+NP5042,VistaRover Trail Tumbler 241,P1042,VistaRover Trail Tumbler 241,exact_name_match,0.9975,P1018,0.8483,Normalized product names match.
+NP5043,BoulderRambler Alpine Jacket 242,P1043,BoulderRambler Alpine Jacket 242,exact_name_match,0.9985,P1067,0.8309,Normalized product names match.
+NP5044,CloudNomad Approach Trail Shoes 243,P1044,CloudNomad Approach Trail Shoes 243,exact_name_match,0.9977,P1020,0.8716,Normalized product names match.
+NP5045,FieldRunner Basecamp Tent 244,P1045,FieldRunner Basecamp Tent 244,exact_name_match,0.9586,P1069,0.7898,Normalized product names match.
+NP5046,SwitchbackRover Weekend Patio Heater 245,P1046,SwitchbackRover Weekend Patio Heater 245,exact_name_match,0.9981,P1070,0.8298,Normalized product names match.
+NP5047,MoonRambler Expedition Flashlight 246,P1047,MoonRambler Expedition Flashlight 246,exact_name_match,0.998,P1023,0.8121,Normalized product names match.
+NP5048,PeakNomad Travel Tumbler 247,P1048,PeakNomad Travel Tumbler 247,exact_name_match,0.9967,P1024,0.8354,Normalized product names match.
+NP5049,SummitRunner Lightweight Jacket 248,P1049,SummitRunner Lightweight Jacket 248,exact_name_match,0.8794,P1001,0.7985,Normalized product names match.
+NP5050,RidgeRover Mid Trail Shoes 249,P1050,RidgeRover Mid Trail Shoes 249,exact_name_match,0.9988,P1002,0.8899,Normalized product names match.
+NP5051,CreekRambler 2P Camp Chair 250,P1051,CreekRambler 2P Camp Chair 250,exact_name_match,0.9989,P1003,0.9722,Normalized product names match.
+NP5052,Storm Nomad Compact Cooler 251,P1052,StormNomad Compact Cooler 251,exact_name_match,0.9854,P1004,0.8697,Normalized product names match.
+NP5053,EmberRunner Storm Kit Battery Pack 252,P1053,EmberRunner Storm Kit Battery Pack 252,exact_name_match,0.9571,P1005,0.923,Normalized product names match.
+NP5054,Trail Rover 20oz Tumbler 253,P1054,TrailRover 20oz Tumbler 253,exact_name_match,0.9845,P1006,0.9388,Normalized product names match.
+NP5055,HearthRambler Storm proof Jacket 254,P1055,HearthRambler Stormproof Jacket 254,exact_name_match,0.9895,P1007,0.8909,Normalized product names match.
+NP5056,CanyonNomad Waterproof Trail Shoes 255,P1056,CanyonNomad Waterproof Trail Shoes 255,exact_name_match,0.9968,P1008,0.9479,Normalized product names match.
+NP5057,PineRunner 4P Tent 256 Pro,P1057,PineRunner 4P Tent 256,review_required,0.8191,P1009,0.6922,Candidate is a suggestion; confirm it manually.
+NP5058,VistaRover-Deluxe-Patio-Heater-257,P1058,VistaRover Deluxe Patio Heater 257,exact_name_match,0.9918,P1010,0.9108,Normalized product names match.
+NP5059,BoulderRambler Rechargeable Flashlight 258 Pro,P1059,BoulderRambler Rechargeable Flashlight 258,review_required,0.9651,P1011,0.9182,Candidate is a suggestion; confirm it manually.
+NP5060,CloudNomad-32oz-Tumbler-259,P1060,CloudNomad 32oz Tumbler 259,exact_name_match,0.9926,P1012,0.9224,Normalized product names match.
+NP5061,FieldRunner Packable Jacket 260 Pro,P1061,FieldRunner Packable Jacket 260,review_required,0.9135,P1013,0.8383,Candidate is a suggestion; confirm it manually.
+NP5062,SwitchbackRover-Wide-Trail-Shoes-261,P1062,SwitchbackRover Wide Trail Shoes 261,exact_name_match,0.9957,P1014,0.9603,Normalized product names match.
+NP5063,MoonRambler Ultralight Camp Chair 262 Pro,P1063,MoonRambler Ultralight Camp Chair 262,review_required,0.9607,P1015,0.8685,Candidate is a suggestion; confirm it manually.
+NP5064,PeakNomad-XL-Cooler-263,P1064,PeakNomad XL Cooler 263,exact_name_match,0.9937,P1016,0.9358,Normalized product names match.
+NP5065,SummitRunner Mini Battery Pack 264 Pro,P1065,SummitRunner Mini Battery Pack 264,review_required,0.8365,P1017,0.7817,Candidate is a suggestion; confirm it manually.
+NP5066,RidgeRover-Trail-Tumbler-265,P1066,RidgeRover Trail Tumbler 265,exact_name_match,0.9963,P1018,0.9158,Normalized product names match.
+NP5067,CreekRambler Alpine Jacket 266 Pro,P1067,CreekRambler Alpine Jacket 266,review_required,0.949,P1019,0.8848,Candidate is a suggestion; confirm it manually.
+NP5068,StormNomad-Approach-Trail-Shoes-267,P1068,StormNomad Approach Trail Shoes 267,exact_name_match,0.9938,P1020,0.9008,Normalized product names match.
+NP5069,BoulderNomad Patio Heater,P1070,TrailRover Weekend Patio Heater 269,review_required,0.7115,P1046,0.704,Candidate is a suggestion; confirm it manually.
+NP5070,FieldPacer Insulated Tumbler,P1072,CanyonNomad Travel Tumbler 271,review_required,0.5352,P1080,0.5186,Candidate is a suggestion; confirm it manually.
+NP5071,MoonScout Trail Shoes,P1002,RidgeRover Mid Trail Shoes 201,review_required,0.6493,P1074,0.644,Multiple new products propose this legacy product; confirm manually.
+NP5072,SummitRover Cooler,P1076,CloudNomad Compact Cooler 275,review_required,0.6139,P1028,0.6091,Candidate is a suggestion; confirm it manually.
+NP5073,FieldRunner Battery Pack,P1077,FieldRunner Storm Kit Battery Pack 276,review_required,0.798,P1029,0.7745,Multiple new products propose this legacy product; confirm manually.
+NP5074,SwitchbackRover Insulated Tumbler,P1078,SwitchbackRover 20oz Tumbler 277,review_required,0.8063,P1030,0.7941,Multiple new products propose this legacy product; confirm manually.
+NP5075,MoonRambler Rain Shell,P1079,MoonRambler Stormproof Jacket 278,review_required,0.6751,P1015,0.6732,Candidate is a suggestion; confirm it manually.
+NP5076,PeakNomad Trail Shoes,P1080,PeakNomad Waterproof Trail Shoes 279,review_required,0.8068,P1032,0.7967,Multiple new products propose this legacy product; confirm manually.
+NP5077,FieldRunner Battery Pack Alt,P1077,FieldRunner Storm Kit Battery Pack 276,review_required,0.7876,P1029,0.7679,Multiple new products propose this legacy product; confirm manually.
+NP5078,SwitchbackRover Insulated Tumbler Alt,P1078,SwitchbackRover 20oz Tumbler 277,review_required,0.8038,P1030,0.7906,Multiple new products propose this legacy product; confirm manually.
+NP5079,MoonRambler Rain Shell Alt,P1015,MoonRambler Ultralight Camp Chair 214,review_required,0.676,P1079,0.6545,Multiple new products propose this legacy product; confirm manually.
+NP5080,PeakNomad Trail Shoes Alt,P1080,PeakNomad Waterproof Trail Shoes 279,review_required,0.8015,P1032,0.7761,Multiple new products propose this legacy product; confirm manually.

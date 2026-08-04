@@ -1,0 +1,14 @@
+{
+  "legacy_rows": 80,
+  "new_rows": 80,
+  "status_counts": {
+    "exact_name_match": 60,
+    "review_required": 20
+  },
+  "scoring": {
+    "name": 0.7,
+    "brand": 0.2,
+    "price": 0.1
+  },
+  "note": "Every non-exact or repeated candidate requires human review."
+}

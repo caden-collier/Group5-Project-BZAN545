@@ -19,7 +19,7 @@ import pymysql
 DEFAULT_HOST = "mariadb-compx0.oit.utk.edu"
 DEFAULT_DATABASE = "aspannba_bzan545"
 DEFAULT_CREDENTIALS = Path("credentials.json")
-DEFAULT_RAW_ROOT = Path("data/raw/products")
+DEFAULT_RAW_ROOT = Path("data/bronze/products")
 TABLES = ("products", "new_products")
 
 

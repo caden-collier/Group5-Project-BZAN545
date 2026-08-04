@@ -12,7 +12,7 @@ from datetime import date
 from pathlib import Path
 from typing import TextIO
 
-from .config import RAW_ORDERS_DIR
+from .config import BRONZE_ORDERS_DIR
 
 
 ORDERS_URL = (
@@ -111,12 +111,11 @@ def validate_orders_bytes(data: bytes) -> ValidatedOrders:
 def preserve_orders_bytes(
     data: bytes,
     *,
-    raw_root: Path = RAW_ORDERS_DIR,
-    dry_run: bool = False,
+    bronze_root: Path = BRONZE_ORDERS_DIR,
 ) -> ValidatedOrders:
     """Preserve validated bytes atomically without overwriting a prior capture."""
     facts = validate_orders_bytes(data)
-    date_dir = raw_root / facts.order_date
+    date_dir = bronze_root / facts.order_date
     csv_path = date_dir / "orders.csv"
     checksum_path = date_dir / "orders.csv.sha256"
 
@@ -137,12 +136,9 @@ def preserve_orders_bytes(
         raise PreservationError(
             f"{date_dir} exists without orders.csv; inspect it manually."
         )
-    if dry_run:
-        return facts
-
-    raw_root.mkdir(parents=True, exist_ok=True)
+    bronze_root.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(
-        prefix=f".{facts.order_date}.", dir=raw_root
+        prefix=f".{facts.order_date}.", dir=bronze_root
     ) as temp:
         staging_dir = Path(temp)
         (staging_dir / "orders.csv").write_bytes(data)
@@ -159,23 +155,28 @@ def preserve_orders_bytes(
 
 
 def inspect_orders(path: Path, *, output: TextIO | None = None) -> ValidatedOrders:
-    """Validate a preserved file and print a concise, read-only summary."""
+    """Validate a preserved file and print a human-friendly pandas profile."""
     import sys
+    import pandas as pd
 
     data = path.read_bytes()
     facts = validate_orders_bytes(data)
-    reader = csv.DictReader(io.StringIO(data.decode("utf-8-sig"), newline=""))
-    rows = list(reader)
-    columns = reader.fieldnames or []
+    frame = pd.read_csv(path)
     stream = output or sys.stdout
     print(f"File: {path}", file=stream)
     print(f"Rows: {facts.row_count}", file=stream)
-    print(f"Columns: {len(columns)}", file=stream)
-    print(f"Column names: {', '.join(columns)}", file=stream)
+    print(f"Columns: {len(frame.columns)}", file=stream)
+    print(f"Column names: {', '.join(frame.columns)}", file=stream)
     print(f"Order date: {facts.order_date}", file=stream)
     print(f"Product key: {facts.product_id_column}", file=stream)
     print(f"SHA-256: {facts.sha256}", file=stream)
-    print("First 3 records:", file=stream)
-    for row in rows[:3]:
-        print(row, file=stream)
+    print(f"Missing values: {int(frame.isna().sum().sum())}", file=stream)
+    print(
+        f"Duplicate order IDs: {int(frame['order_id'].duplicated().sum())}",
+        file=stream,
+    )
+    print(f"Unique stores: {frame['store_id'].nunique()}", file=stream)
+    print(f"Unique products: {frame[facts.product_id_column].nunique()}", file=stream)
+    print("First 5 records:", file=stream)
+    print(frame.head().to_string(index=False), file=stream)
     return facts
