@@ -13,7 +13,6 @@ data/silver/              Cleaned or reconciled datasets
 data/gold/                Final analysis-ready datasets
 src/bzan545/              Active pipeline code
 tests/                    Focused automated checks
-tools/                    One-off migration and reporting scripts
 docs/milestones/          Historical coursework
 ```
 
@@ -56,6 +55,8 @@ Useful commands:
   human review.
 - `bzan545 replay` validates preserved bronze captures and backfills missing log
   entries. Its timestamp is when replay logged the file, not its order date.
+- `bzan545 crosswalk` rebuilds the silver product crosswalk from bronze product
+  snapshots.
 - `bzan545 weather YYYY-MM-DD` syncs weather for one date.
 
 ## What the order checks do
@@ -82,8 +83,12 @@ store and date. Temperatures are Celsius and precipitation is millimeters.
 
 ## Product crosswalk verification
 
-The matching-rule unit tests use small controlled examples. A separate
-real-data test checks that every product in the bronze migrated-product snapshot
-appears exactly once in the silver crosswalk, that proposed legacy IDs exist,
-and that scores are valid. Ambiguous matches still require human review; a test
-cannot establish the business correctness of a proposed mapping.
+The crosswalk first accepts normalized product-name matches. Every other product
+is ranked using only name similarity (70%), brand similarity (20%), and price
+closeness (10%), and is marked `review_required`. A repeated legacy candidate is
+also marked for review.
+
+The tests check the matching rules with small examples and verify that every
+real migrated product appears exactly once in the silver crosswalk, proposed
+legacy IDs exist, and scores are valid. A test cannot establish the business
+correctness of a proposed mapping, so uncertain matches remain a human decision.

@@ -1,4 +1,4 @@
-"""Tests for the product migration matching rules."""
+"""Focused checks for the simple product crosswalk."""
 
 from __future__ import annotations
 
@@ -7,79 +7,54 @@ import unittest
 import pandas as pd
 
 from bzan545.config import BRONZE_DIR, SILVER_DIR
-from tools.build_product_crosswalk import (
-    build_crosswalk,
-    choose_columns,
-    normalize,
-    parse_price,
-)
+from bzan545.crosswalk import build_crosswalk, normalize
+
+
+def legacy_products(*rows: tuple[str, str, str, float]) -> pd.DataFrame:
+    return pd.DataFrame(
+        rows,
+        columns=["product_id", "product_name", "brand", "base_price"],
+    )
+
+
+def new_products(*rows: tuple[str, str, str, float]) -> pd.DataFrame:
+    return pd.DataFrame(
+        rows,
+        columns=["new_product_id", "item_name", "brand_name", "msrp"],
+    )
 
 
 class ProductCrosswalkTests(unittest.TestCase):
     def test_normalization_ignores_case_and_punctuation(self) -> None:
         self.assertEqual(normalize("ACME's Trail-Shoe"), "acme s trail shoe")
 
-    def test_price_parser_accepts_currency(self) -> None:
-        self.assertEqual(parse_price("$1,299.50"), 1299.50)
-
-    def test_exact_match_is_selected(self) -> None:
-        legacy = [
-            {
-                "product_id": "P1001",
-                "product_name": "Acme Trail Shoe",
-                "brand": "Acme",
-                "category": "Footwear",
-                "list_price": "90.00",
-            },
-            {
-                "product_id": "P1002",
-                "product_name": "Acme Road Shoe",
-                "brand": "Acme",
-                "category": "Footwear",
-                "list_price": "85.00",
-            },
-        ]
-        migrated = [
-            {
-                "new_product_id": "NP5001",
-                "product_name": "Acme Trail Shoe",
-                "brand": "Acme",
-                "category": "Footwear",
-                "list_price": "90.00",
-            }
-        ]
-        old_columns = choose_columns(legacy[0])
-        new_columns = choose_columns(migrated[0])
-
+    def test_exact_name_match_is_selected(self) -> None:
         result = build_crosswalk(
-            legacy, migrated, old_columns, new_columns
+            legacy_products(
+                ("P1001", "Acme Trail Shoe", "Acme", 90.0),
+                ("P1002", "Acme Road Shoe", "Acme", 85.0),
+            ),
+            new_products(("NP5001", "Acme Trail Shoe", "Acme", 90.0)),
         )
 
-        self.assertEqual(result[0]["proposed_legacy_product_id"], "P1001")
-        self.assertEqual(result[0]["match_status"], "matched_exact")
+        self.assertEqual(result.loc[0, "proposed_legacy_product_id"], "P1001")
+        self.assertEqual(result.loc[0, "match_status"], "exact_name_match")
 
-    def test_duplicate_candidate_requires_review(self) -> None:
-        legacy = [
-            {"product_id": "P1001", "product_name": "Trail Shoe"},
-            {"product_id": "P1002", "product_name": "Winter Hat"},
-        ]
-        migrated = [
-            {"new_product_id": "NP5001", "product_name": "Trail Shoe"},
-            {"new_product_id": "NP5002", "product_name": "Trail Shoe"},
-        ]
-
+    def test_non_exact_and_repeated_candidates_require_review(self) -> None:
         result = build_crosswalk(
-            legacy,
-            migrated,
-            choose_columns(legacy[0]),
-            choose_columns(migrated[0]),
+            legacy_products(
+                ("P1001", "Trail Shoe", "Acme", 90.0),
+                ("P1002", "Winter Hat", "Acme", 25.0),
+            ),
+            new_products(
+                ("NP5001", "Trail Shoe Pro", "Acme", 92.0),
+                ("NP5002", "Trail Shoe Alt", "Acme", 88.0),
+            ),
         )
 
+        self.assertTrue(result["match_status"].eq("review_required").all())
         self.assertTrue(
-            all(
-                row["match_status"] == "review_duplicate_candidate"
-                for row in result
-            )
+            result["review_note"].str.contains("Multiple new products").all()
         )
 
     def test_real_crosswalk_covers_the_real_product_snapshot(self) -> None:

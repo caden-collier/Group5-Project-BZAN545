@@ -1,8 +1,8 @@
 # Milestone 06 - Product Migration Response
 
 This workflow is independent of the weather enrichment work in Milestone 05.
-It snapshots both product systems, creates an auditable draft crosswalk, reports
-match-status counts, and generates a short Canvas-ready response.
+It snapshots both product systems, creates a reviewable draft crosswalk, and
+reports match-status counts.
 
 ## Confirmed cutover in orders
 
@@ -22,30 +22,29 @@ to continue through the same ingestion process.
 2. Snapshot both source tables:
 
    ```text
-   python tools/export_product_sources.py --snapshot-date 2026-07-29
+   python docs/milestones/milestone_06/export_product_sources.py --snapshot-date 2026-07-29
    ```
 
-3. Build the crosswalk, counts, schema comparison, and Canvas response:
+3. Build the crosswalk and status summary:
 
    ```text
-   python tools/build_product_crosswalk.py data/bronze/products/2026-07-29/products.csv data/bronze/products/2026-07-29/new_products.csv
+   bzan545 crosswalk
    ```
 
 The generated milestone evidence is:
 
 - `data/silver/product_crosswalk.csv`
 - `data/silver/product_crosswalk_summary.json`
-- `docs/milestones/milestone_06/Canvas_Submission.md`
+- `docs/milestones/milestone_06/Canvas_Submission.md` is the retained historical
+  submission; rebuilding the crosswalk does not rewrite it.
 
 ## Match-status policy
 
-- `matched_exact`: exact normalized name plus strong supporting similarity
-- `matched_high_confidence`: strong multi-field match with a clear runner-up gap
-- `review_ambiguous`: the two leading candidates are too close
-- `review_low_confidence`: plausible, but below the automatic threshold
-- `review_duplicate_candidate`: multiple new products point to one legacy row
-- `unmatched`: no sufficiently similar legacy candidate
+- `exact_name_match`: normalized product names match and the proposed legacy ID
+  is not shared with another new product.
+- `review_required`: the name is not exact or multiple new products propose the
+  same legacy product.
 
-No review status is silently treated as a completed mapping. The crosswalk keeps
-the leading candidate, runner-up, scores, compared fields, and a review note so
-the group can resolve product splits, collisions, and uncertain renames.
+Non-exact candidates are ranked using product name (70%), brand (20%), and price
+(10%). The crosswalk keeps the leading candidate, runner-up, scores, and a review
+note so the group can resolve product splits, collisions, and uncertain renames.

@@ -38,6 +38,6 @@ Observed descriptive-value changes include:
 
 - Crosswalk: `data/silver/product_crosswalk.csv`
 - Counts/schema summary: `data/silver/product_crosswalk_summary.json`
-- Source export: `tools/export_product_sources.py`
-- Crosswalk builder: `tools/build_product_crosswalk.py`
+- Historical source export: `docs/milestones/milestone_06/export_product_sources.py`
+- Crosswalk builder: `src/bzan545/crosswalk.py`
 - Order ingestion: `src/bzan545/orders.py`
