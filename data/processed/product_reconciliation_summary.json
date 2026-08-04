@@ -1,0 +1,15 @@
+{
+  "input_rows": 2306,
+  "output_rows": 2306,
+  "status_counts": {
+    "legacy_original": 1588,
+    "matched_exact": 582,
+    "review_ambiguous": 88,
+    "review_duplicate_candidate": 31,
+    "review_low_confidence": 13,
+    "unmapped_new_product": 4
+  },
+  "unmapped_new_product_ids": [
+    "NP9999"
+  ]
+}

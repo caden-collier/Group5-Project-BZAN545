@@ -1,0 +1,13 @@
+{
+  "source_file_count": 19,
+  "source_date_count": 19,
+  "raw_row_count": 2310,
+  "exact_duplicate_rows_removed": 4,
+  "clean_row_count": 2306,
+  "unique_order_id_count": 2306,
+  "missing_calendar_dates": [
+    "2026-07-13",
+    "2026-07-24",
+    "2026-07-25"
+  ]
+}

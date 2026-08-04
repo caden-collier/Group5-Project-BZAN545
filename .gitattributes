@@ -1,0 +1,3 @@
+
+# Preserve exact raw order bytes; do not normalize line endings.
+data/raw/orders/**/orders.csv -text
