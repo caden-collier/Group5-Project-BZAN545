@@ -92,3 +92,53 @@ The tests check the matching rules with small examples and verify that every
 real migrated product appears exactly once in the silver crosswalk, proposed
 legacy IDs exist, and scores are valid. A test cannot establish the business
 correctness of a proposed mapping, so uncertain matches remain a human decision.
+
+## Analytics-ready daily sales table
+
+The final analytics-ready table is named
+`group5_rto_daily_sales_weather`.
+
+### Grain
+
+One row represents the daily sales for one canonical product at
+one store:
+
+- `order_date`
+- `store_id`
+- `canonical_product_id`
+
+### Contents
+
+The table includes:
+
+- canonical product ID and product name
+- store name and location information
+- distinct order count
+- units sold
+- net sales
+- daily maximum temperature
+- daily minimum temperature
+- daily precipitation
+
+Store information is joined using `store_id`.
+
+Weather is joined using `store_id` and `order_date`.
+
+### Product reconciliation
+
+Legacy products retain their original product IDs.
+
+New products with exact crosswalk matches use the proposed legacy
+product ID.
+
+Products requiring review remain separate using a `NEW:` prefix.
+
+Products missing from the product master remain separate using an
+`UNMAPPED:` prefix.
+
+### Outputs
+
+- `data/silver/order_lines.csv`
+- `data/gold/group5_rto_daily_sales_weather.csv`
+- `data/gold/daily_sales_validation.json`
+- MariaDB table `group5_rto_daily_sales_weather`

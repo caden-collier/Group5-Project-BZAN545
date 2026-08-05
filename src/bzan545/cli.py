@@ -9,8 +9,9 @@ from .config import BRONZE_ORDERS_DIR
 from .crosswalk import build_crosswalk_files
 from .ingestion import replay_raw_ingestions, run_ingestion
 from .orders import inspect_orders
-from .pipeline import run_daily_pipeline
+from .pipeline import rebuild_analytics, run_daily_pipeline
 from .weather import backfill_weather, sync_weather
+
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -34,6 +35,10 @@ def build_parser() -> argparse.ArgumentParser:
     commands.add_parser(
     "weather-backfill",
     help="sync weather for every bronze order date",
+    )
+    commands.add_parser(
+    "rebuild",
+    help="rebuild silver and gold from bronze",
     )
     return parser
 
@@ -59,4 +64,6 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "weather-backfill":
         backfill_weather()
         return 0
+    if args.command == "rebuild":
+        return rebuild_analytics()
     raise AssertionError(f"Unhandled command: {args.command}")

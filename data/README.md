@@ -32,3 +32,24 @@ their canonical product ID.
 Migrated products marked `review_required` remain separate using
 `NEW:<new_product_id>` until a human-approved mapping is available. This avoids
 silently combining uncertain products.
+
+## Silver orders
+
+`data/silver/order_lines.csv` contains one row per cleaned order.
+
+It combines the preserved bronze order files, removes exact
+duplicate rows, reconciles old and new product identifiers, and
+assigns a canonical product ID and name.
+
+## Gold daily sales
+
+`data/gold/group5_rto_daily_sales_weather.csv` is the final
+analytics-ready table.
+
+Its grain is one row per `order_date`, `store_id`, and
+`canonical_product_id`.
+
+It contains aggregated sales, store information, and daily weather.
+
+Validation results are stored in
+`data/gold/daily_sales_validation.json`.
