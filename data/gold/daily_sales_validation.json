@@ -1,0 +1,23 @@
+{
+  "gold_table": "group5_rto_daily_sales_weather",
+  "grain": [
+    "order_date",
+    "store_id",
+    "canonical_product_id"
+  ],
+  "silver_rows": 2404,
+  "gold_rows": 2193,
+  "duplicate_grain_rows": 0,
+  "missing_store_rows": 0,
+  "missing_weather_rows": 0,
+  "missing_product_name_rows": 0,
+  "silver_units": 4746.0,
+  "gold_units": 4746.0,
+  "units_difference": 0.0,
+  "silver_net_sales": 884686.73,
+  "gold_net_sales": 884686.73,
+  "net_sales_difference": 0.0,
+  "sql_rows": 2193,
+  "sql_csv_row_count_difference": 0,
+  "validation_passed": true
+}
