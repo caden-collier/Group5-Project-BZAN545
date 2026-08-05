@@ -21,3 +21,14 @@ derived from silver data rather than directly from a source capture.
 The ingestion log's `timestamp_utc` is the time the event was written. For a
 replay event, it is therefore the replay time; `order_date` remains the business
 date contained in the source file.
+
+## Product reconciliation policy
+
+Legacy product IDs remain unchanged.
+
+Migrated products with `exact_name_match` use the proposed legacy product ID as
+their canonical product ID.
+
+Migrated products marked `review_required` remain separate using
+`NEW:<new_product_id>` until a human-approved mapping is available. This avoids
+silently combining uncertain products.

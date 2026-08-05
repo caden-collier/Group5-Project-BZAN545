@@ -73,7 +73,7 @@ is read-only. Preservation adds the separate no-overwrite and checksum checks.
 
 ## Automation and weather
 
-The workflow runs at 10:37 PM Eastern with an 11:37 PM retry. It runs the tests,
+The workflow runs at 12:00 PM Eastern with an 1:00 PM retry. It runs the tests,
 executes `bzan545 daily`, and commits changes under `data/bronze/orders/` and
 `data/bronze/ingestion_log.csv`.
 

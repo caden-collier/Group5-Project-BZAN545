@@ -3,9 +3,9 @@ name: Daily data pipeline
 on:
   schedule:
     # Off-peak minutes reduce scheduler delays. The second run is a safe retry.
-    - cron: "37 22 * * *"
+    - cron: "0 12 * * *"
       timezone: "America/New_York"
-    - cron: "37 23 * * *"
+    - cron: "0 13 * * *"
       timezone: "America/New_York"
   workflow_dispatch:
 
