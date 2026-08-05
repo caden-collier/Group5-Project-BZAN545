@@ -10,7 +10,7 @@ from .crosswalk import build_crosswalk_files
 from .ingestion import replay_raw_ingestions, run_ingestion
 from .orders import inspect_orders
 from .pipeline import run_daily_pipeline
-from .weather import sync_weather
+from .weather import backfill_weather, sync_weather
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -31,6 +31,10 @@ def build_parser() -> argparse.ArgumentParser:
     commands.add_parser("crosswalk", help="rebuild the silver product crosswalk")
     weather = commands.add_parser("weather", help="sync weather for an ISO date")
     weather.add_argument("date", help="order date in YYYY-MM-DD format")
+    commands.add_parser(
+    "weather-backfill",
+    help="sync weather for every bronze order date",
+    )
     return parser
 
 
@@ -51,5 +55,8 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if args.command == "weather":
         sync_weather(args.date)
+        return 0
+    if args.command == "weather-backfill":
+        backfill_weather()
         return 0
     raise AssertionError(f"Unhandled command: {args.command}")

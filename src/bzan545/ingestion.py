@@ -50,7 +50,7 @@ def append_log_if_missing(
     log_path.parent.mkdir(parents=True, exist_ok=True)
     write_header = not log_path.exists() or log_path.stat().st_size == 0
     with log_path.open("a", newline="", encoding="utf-8") as log_file:
-        writer = csv.DictWriter(log_file, fieldnames=LOG_FIELDS)
+        writer = csv.DictWriter(log_file, fieldnames=LOG_FIELDS, lineterminator="\n")
         if write_header:
             writer.writeheader()
         writer.writerow(normalized_row)

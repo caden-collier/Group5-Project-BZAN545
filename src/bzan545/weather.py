@@ -9,7 +9,7 @@ from dataclasses import dataclass
 from datetime import date
 from typing import Any
 
-from .config import DatabaseSettings
+from .config import BRONZE_ORDERS_DIR, DatabaseSettings
 
 
 WEATHER_URL = "https://archive-api.open-meteo.com/v1/archive"
@@ -170,3 +170,20 @@ def sync_weather(
         f"{len(existing)} already cached."
     )
     return len(rows)
+
+def backfill_weather() -> int:
+    """Sync weather for every date that has a bronze orders file."""
+    order_dates = sorted(
+        path.parent.name
+        for path in BRONZE_ORDERS_DIR.glob("*/orders.csv")
+    )
+
+    for order_date in order_dates:
+        sync_weather(order_date)
+
+    print(
+        f"Weather backfill complete: "
+        f"{len(order_dates)} dates checked."
+    )
+
+    return len(order_dates)
