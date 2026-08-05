@@ -9,8 +9,16 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = PROJECT_ROOT / "data"
-RAW_ORDERS_DIR = DATA_DIR / "raw" / "orders"
-INGESTION_LOG_PATH = DATA_DIR / "logs" / "ingestion_log.csv"
+BRONZE_DIR = DATA_DIR / "bronze"
+SILVER_DIR = DATA_DIR / "silver"
+GOLD_DIR = DATA_DIR / "gold"
+BRONZE_ORDERS_DIR = BRONZE_DIR / "orders"
+INGESTION_LOG_PATH = BRONZE_DIR / "ingestion_log.csv"
+
+PRODUCT_CROSSWALK_PATH = SILVER_DIR / "product_crosswalk.csv"
+SILVER_ORDERS_PATH = SILVER_DIR / "order_lines.csv"
+GOLD_SALES_PATH = GOLD_DIR / "group5_rto_daily_sales_weather.csv"
+GOLD_VALIDATION_PATH = GOLD_DIR / "daily_sales_validation.json"
 
 
 @dataclass(frozen=True)

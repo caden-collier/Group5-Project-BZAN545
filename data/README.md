@@ -1,0 +1,55 @@
+# Data layers
+
+```text
+bronze/
+  ingestion_log.csv       One row per logged ingestion event
+  orders/YYYY-MM-DD/       Exact daily source files and checksums
+  products/YYYY-MM-DD/     Exact product-table snapshots and checksums
+
+silver/
+  product_crosswalk.csv    Proposed old-to-new product mappings
+  product_crosswalk_summary.json
+
+gold/
+  README.md                Placeholder for final analytics outputs
+```
+
+Bronze files are source evidence and must not be edited in place. Silver files
+may be rebuilt from bronze data. Gold files must be analysis-ready and should be
+derived from silver data rather than directly from a source capture.
+
+The ingestion log's `timestamp_utc` is the time the event was written. For a
+replay event, it is therefore the replay time; `order_date` remains the business
+date contained in the source file.
+
+## Product reconciliation policy
+
+Legacy product IDs remain unchanged.
+
+Migrated products with `exact_name_match` use the proposed legacy product ID as
+their canonical product ID.
+
+Migrated products marked `review_required` remain separate using
+`NEW:<new_product_id>` until a human-approved mapping is available. This avoids
+silently combining uncertain products.
+
+## Silver orders
+
+`data/silver/order_lines.csv` contains one row per cleaned order.
+
+It combines the preserved bronze order files, removes exact
+duplicate rows, reconciles old and new product identifiers, and
+assigns a canonical product ID and name.
+
+## Gold daily sales
+
+`data/gold/group5_rto_daily_sales_weather.csv` is the final
+analytics-ready table.
+
+Its grain is one row per `order_date`, `store_id`, and
+`canonical_product_id`.
+
+It contains aggregated sales, store information, and daily weather.
+
+Validation results are stored in
+`data/gold/daily_sales_validation.json`.

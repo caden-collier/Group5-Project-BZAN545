@@ -23,7 +23,7 @@ class IngestionTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)
             options = dict(
-                log_path=root / "log.csv", raw_root=root / "raw",
+                log_path=root / "log.csv", bronze_root=root / "bronze",
                 downloader=download_valid_csv, now=lambda: FIXED_TIME,
             )
             self.assertTrue(run_ingestion(**options).succeeded)
@@ -41,7 +41,7 @@ class IngestionTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)
             result = run_ingestion(
-                log_path=root / "log.csv", raw_root=root / "raw",
+                log_path=root / "log.csv", bronze_root=root / "bronze",
                 downloader=fail, now=lambda: FIXED_TIME,
             )
             self.assertFalse(result.succeeded)

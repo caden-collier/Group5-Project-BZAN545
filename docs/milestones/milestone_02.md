@@ -5,13 +5,13 @@
 - Order date represented: `2026-07-12`
 - Rows captured: `104`
 - Columns captured: `9`
-- Raw file: `data/raw/orders/2026-07-12/orders.csv`
-- Inspection command: `bzan545 inspect data/raw/orders/2026-07-12/orders.csv`
+- Bronze file: `data/bronze/orders/2026-07-12/orders.csv`
+- Inspection command: `bzan545 inspect data/bronze/orders/2026-07-12/orders.csv`
 
 ## Raw-file storage convention
 
 Future order files will be preserved unchanged under
-`data/raw/orders/YYYY-MM-DD/orders.csv`, where `YYYY-MM-DD` is the date
+`data/bronze/orders/YYYY-MM-DD/orders.csv`, where `YYYY-MM-DD` is the date
 represented by the orders in the source file. Each daily pull will be stored in
 its own directory so an earlier raw file is never overwritten.
 
@@ -21,7 +21,7 @@ From the repository root, run:
 
 ```text
 python -m pip install -e .
-bzan545 inspect data/raw/orders/2026-07-12/orders.csv
+bzan545 inspect data/bronze/orders/2026-07-12/orders.csv
 ```
 
 The output reports the source path, row and column counts, column names, order
@@ -31,7 +31,7 @@ to the Canvas milestone submission.
 ## Verified output
 
 ```text
-File: data/raw/orders/2026-07-12/orders.csv
+File: data/bronze/orders/2026-07-12/orders.csv
 Rows: 104
 Columns: 9
 Column names: order_id, order_date, store_id, product_id, quantity, unit_price, discount_pct, sales_channel, loyalty_member

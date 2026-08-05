@@ -2,7 +2,7 @@
 
 ## Source and schema changes
 
-We loaded `data/raw/products/2026-07-29/products.csv` (80 rows) and `data/raw/products/2026-07-29/new_products.csv` (80 rows). The daily orders feed also changed its join key from `product_id` through 2026-07-27 to `new_product_id` beginning 2026-07-28.
+We loaded `data/bronze/products/2026-07-29/products.csv` (80 rows) and `data/bronze/products/2026-07-29/new_products.csv` (80 rows). The daily orders feed also changed its join key from `product_id` through 2026-07-27 to `new_product_id` beginning 2026-07-28.
 
 - Columns removed/renamed from the legacy table: `base_price, brand, category, margin_rate, product_id, product_name, subcategory`
 - Columns added in the migrated table: `brand_name, class, department, gross_margin, item_name, msrp, new_product_id`
@@ -36,8 +36,8 @@ Observed descriptive-value changes include:
 
 ## Repository paths
 
-- Crosswalk: `data/processed/product_crosswalk.csv`
-- Counts/schema summary: `data/processed/product_crosswalk_summary.json`
-- Source export: `src/export_product_sources.py`
-- Crosswalk builder: `src/build_product_crosswalk.py`
-- Migration-aware order ingestion: `src/preserve_daily_orders.py`
+- Crosswalk: `data/silver/product_crosswalk.csv`
+- Counts/schema summary: `data/silver/product_crosswalk_summary.json`
+- Historical source export: `docs/milestones/milestone_06/export_product_sources.py`
+- Crosswalk builder: `src/bzan545/crosswalk.py`
+- Order ingestion: `src/bzan545/orders.py`

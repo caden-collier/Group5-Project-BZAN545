@@ -2,10 +2,10 @@ name: Daily data pipeline
 
 on:
   schedule:
-    # Off-peak minutes reduce scheduler delays. The second run is a safe retry.
-    - cron: "37 22 * * *"
+    # Run at noon Eastern, with a 1 PM retry.
+    - cron: "0 12 * * *"
       timezone: "America/New_York"
-    - cron: "37 23 * * *"
+    - cron: "0 13 * * *"
       timezone: "America/New_York"
   workflow_dispatch:
 
@@ -39,21 +39,39 @@ jobs:
 
       # UTK MariaDB is not reachable from GitHub-hosted runners. Weather is
       # synchronized separately from a UTK-connected machine.
-      - name: Ingest orders and update the log
+      - name: Run daily orders ingestion
+        id: pipeline
         run: bzan545 daily --skip-weather
 
-      - name: Commit orders and ingestion log updates
+      - name: Commit generated data updates
         if: always()
         shell: bash
+        env:
+          PIPELINE_OUTCOME: ${{ steps.pipeline.outcome }}
         run: |
-          if [[ -z "$(git status --porcelain -- data/raw/orders data/logs/ingestion_log.csv)" ]]; then
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Preserve new bronze orders and ingestion evidence,
+          # even if weather or analytics fails afterward.
+          git add -- \
+            data/bronze/orders \
+            data/bronze/ingestion_log.csv
+
+          # Only stage silver and gold when the complete
+          # daily pipeline finished successfully.
+          if [[ "$PIPELINE_OUTCOME" == "success" ]]; then
+            git add -- \
+              data/silver/order_lines.csv \
+              data/gold/group5_rto_daily_sales_weather.csv \
+              data/gold/daily_sales_validation.json
+          fi
+
+          if git diff --cached --quiet; then
             echo "No new repository data to commit."
             exit 0
           fi
 
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- data/raw/orders data/logs/ingestion_log.csv
           git commit -m "Update daily data pipeline"
           git pull --rebase origin main
           git push

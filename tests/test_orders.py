@@ -42,17 +42,48 @@ class OrdersTests(unittest.TestCase):
         with self.assertRaises(PreservationError):
             validate_orders_bytes(make_csv())
 
+        reordered = (
+            NEW_PRODUCT_ID_COLUMNS[1],
+            NEW_PRODUCT_ID_COLUMNS[0],
+            *NEW_PRODUCT_ID_COLUMNS[2:],
+        )
+        with self.assertRaises(PreservationError):
+            validate_orders_bytes(make_csv(VALID_ROW, columns=reordered))
+
+    def test_rejects_multiple_or_invalid_dates(self) -> None:
+        another_date = (*VALID_ROW[:1], "2026-08-01", *VALID_ROW[2:])
+        with self.assertRaises(PreservationError):
+            validate_orders_bytes(make_csv(VALID_ROW, another_date))
+
+        invalid_date = (*VALID_ROW[:1], "07/31/2026", *VALID_ROW[2:])
+        with self.assertRaises(PreservationError):
+            validate_orders_bytes(make_csv(invalid_date))
+
     def test_preservation_is_atomic_idempotent_and_hashed(self) -> None:
         data = make_csv(VALID_ROW)
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)
-            preserve_orders_bytes(data, raw_root=root)
-            preserve_orders_bytes(data, raw_root=root)
+            preserve_orders_bytes(data, bronze_root=root)
+            preserve_orders_bytes(data, bronze_root=root)
             date_dir = root / "2026-07-31"
             self.assertEqual((date_dir / "orders.csv").read_bytes(), data)
             self.assertEqual(
                 (date_dir / "orders.csv.sha256").read_text(),
                 f"{sha256_bytes(data)}  orders.csv\n",
+            )
+
+    def test_different_existing_file_is_not_overwritten(self) -> None:
+        original = make_csv(VALID_ROW)
+        changed_row = (*VALID_ROW[:3], "NP5999", *VALID_ROW[4:])
+        changed = make_csv(changed_row)
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            preserve_orders_bytes(original, bronze_root=root)
+            with self.assertRaises(PreservationError):
+                preserve_orders_bytes(changed, bronze_root=root)
+            self.assertEqual(
+                (root / "2026-07-31" / "orders.csv").read_bytes(),
+                original,
             )
 
     def test_inspection_is_read_only(self) -> None:
@@ -65,6 +96,7 @@ class OrdersTests(unittest.TestCase):
             self.assertEqual(path.read_bytes(), before)
             self.assertEqual(facts.row_count, 1)
             self.assertIn("Order date: 2026-07-31", output.getvalue())
+            self.assertIn("Duplicate order IDs: 0", output.getvalue())
 
 
 if __name__ == "__main__":

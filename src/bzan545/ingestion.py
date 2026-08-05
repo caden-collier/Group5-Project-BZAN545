@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 
-from .config import INGESTION_LOG_PATH, RAW_ORDERS_DIR
+from .config import BRONZE_ORDERS_DIR, INGESTION_LOG_PATH
 from .orders import (
     PreservationError,
     ValidatedOrders,
@@ -50,7 +50,7 @@ def append_log_if_missing(
     log_path.parent.mkdir(parents=True, exist_ok=True)
     write_header = not log_path.exists() or log_path.stat().st_size == 0
     with log_path.open("a", newline="", encoding="utf-8") as log_file:
-        writer = csv.DictWriter(log_file, fieldnames=LOG_FIELDS)
+        writer = csv.DictWriter(log_file, fieldnames=LOG_FIELDS, lineterminator="\n")
         if write_header:
             writer.writeheader()
         writer.writerow(normalized_row)
@@ -60,7 +60,7 @@ def append_log_if_missing(
 def run_ingestion(
     *,
     log_path: Path = INGESTION_LOG_PATH,
-    raw_root: Path = RAW_ORDERS_DIR,
+    bronze_root: Path = BRONZE_ORDERS_DIR,
     downloader: Callable[[], bytes] = download_orders,
     now: Callable[[], datetime] | None = None,
 ) -> IngestionResult:
@@ -71,7 +71,7 @@ def run_ingestion(
     run_date = current_time.astimezone(timezone.utc).date().isoformat()
 
     try:
-        facts = preserve_orders_bytes(downloader(), raw_root=raw_root)
+        facts = preserve_orders_bytes(downloader(), bronze_root=bronze_root)
     except PreservationError as exc:
         message = str(exc)
         added = append_log_if_missing(
@@ -105,15 +105,17 @@ def run_ingestion(
 
 def replay_raw_ingestions(
     *,
-    raw_root: Path = RAW_ORDERS_DIR,
+    bronze_root: Path = BRONZE_ORDERS_DIR,
     log_path: Path = INGESTION_LOG_PATH,
 ) -> tuple[int, int]:
     """Validate existing captures and add only missing audit-log events."""
     successes = failures = 0
-    for csv_path in sorted(raw_root.glob("*/orders.csv")):
+    for csv_path in sorted(bronze_root.glob("*/orders.csv")):
         timestamp = datetime.now(timezone.utc).isoformat()
         try:
-            facts = preserve_orders_bytes(csv_path.read_bytes(), raw_root=raw_root)
+            facts = preserve_orders_bytes(
+                csv_path.read_bytes(), bronze_root=bronze_root
+            )
             if facts.order_date != csv_path.parent.name:
                 raise PreservationError(
                     f"Folder {csv_path.parent.name} contains orders for "
