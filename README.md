@@ -48,16 +48,20 @@ Useful commands:
 
 ## GitHub Actions configuration
 
-The workflow runs at 10:37 PM Eastern with an 11:37 PM retry. Add these GitHub
-Actions repository secrets before enabling it:
+The workflow runs at 10:37 PM Eastern with an 11:37 PM retry. GitHub-hosted
+runners download, validate, preserve, and log the daily orders. They skip the
+weather step because UTK MariaDB is not reachable from GitHub's network.
 
-- `BZAN_DB_USERNAME`
-- `BZAN_DB_PASSWORD`
+Run weather synchronization from a machine connected to the UTK network or VPN:
 
-Optional repository variables are `BZAN_DB_DATABASE` and `BZAN_DB_HOST`; the
-defaults are already set for the group's UTK database. The workflow always tries
-to commit a success or failure ingestion-log event, even when a later stage
-fails. Repeated runs are safe: raw files are never overwritten, log events are
+```powershell
+$env:BZAN_DB_USERNAME = "your NetID"
+$env:BZAN_DB_PASSWORD = "your database password"
+bzan545 weather YYYY-MM-DD
+```
+
+The workflow always tries to commit a success or failure ingestion-log event.
+Repeated runs are safe: raw files are never overwritten, log events are
 deduplicated, and weather uses one database row per store and date.
 
 Weather comes from Open-Meteo's Historical Weather API. Temperatures are stored
