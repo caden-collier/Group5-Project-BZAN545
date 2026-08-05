@@ -11,6 +11,17 @@ from .config import (
 )
 
 
+def parse_unit_prices(values: pd.Series) -> pd.Series:
+    """Convert plain or dollar-formatted transaction prices to numbers."""
+    cleaned = (
+        values.astype("string")
+        .str.strip()
+        .str.replace("$", "", regex=False)
+        .str.replace(",", "", regex=False)
+    )
+    return pd.to_numeric(cleaned, errors="raise")
+
+
 def read_bronze_orders() -> pd.DataFrame:
     """Read and combine every preserved bronze order file."""
     order_files = sorted(
@@ -61,9 +72,8 @@ def read_bronze_orders() -> pd.DataFrame:
         errors="raise",
     )
 
-    orders["unit_price"] = pd.to_numeric(
-        orders["unit_price"],
-        errors="raise",
+    orders["unit_price"] = parse_unit_prices(
+        orders["unit_price"]
     )
 
     orders["discount_pct"] = pd.to_numeric(

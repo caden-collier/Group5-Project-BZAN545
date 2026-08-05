@@ -21,12 +21,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
-    env:
-      BZAN_DB_USERNAME: ${{ secrets.BZAN_DB_USERNAME }}
-      BZAN_DB_PASSWORD: ${{ secrets.BZAN_DB_PASSWORD }}
-      BZAN_DB_DATABASE: ${{ vars.BZAN_DB_DATABASE || 'ltk528_bzan545' }}
-      BZAN_DB_HOST: ${{ vars.BZAN_DB_HOST || 'mariadb-compx0.oit.utk.edu' }}
-
     steps:
       - name: Check out the repository
         uses: actions/checkout@v4
@@ -43,9 +37,11 @@ jobs:
       - name: Run offline safety tests
         run: python -m unittest discover -s tests -v
 
-      - name: Run the daily pipeline
+      # UTK MariaDB is not reachable from GitHub-hosted runners. Weather is
+      # synchronized separately from a UTK-connected machine.
+      - name: Run daily orders ingestion
         id: pipeline
-        run: bzan545 daily
+        run: bzan545 daily --skip-weather
 
       - name: Commit generated data updates
         if: always()
@@ -77,4 +73,5 @@ jobs:
           fi
 
           git commit -m "Update daily data pipeline"
+          git pull --rebase origin main
           git push

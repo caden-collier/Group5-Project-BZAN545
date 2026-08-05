@@ -73,13 +73,22 @@ is read-only. Preservation adds the separate no-overwrite and checksum checks.
 
 ## Automation and weather
 
-The workflow runs at 12:00 PM Eastern with an 1:00 PM retry. It runs the tests,
-executes `bzan545 daily`, and commits changes under `data/bronze/orders/` and
-`data/bronze/ingestion_log.csv`.
+The workflow runs at 12:00 PM Eastern with a 1:00 PM retry. GitHub-hosted
+runners run the tests, execute `bzan545 daily --skip-weather`, and commit
+changes under `data/bronze/orders/` and `data/bronze/ingestion_log.csv`.
+Weather is skipped because UTK MariaDB is not reachable from GitHub's network.
 
-Database credentials are stored as GitHub Actions secrets. Weather comes from
-Open-Meteo and is stored in MariaDB table `store_weather_daily`, with one row per
-store and date. Temperatures are Celsius and precipitation is millimeters.
+Run weather synchronization from a machine connected to the UTK network or VPN:
+
+```powershell
+$env:BZAN_DB_USERNAME = "your NetID"
+$env:BZAN_DB_PASSWORD = "your database password"
+bzan545 weather YYYY-MM-DD
+```
+
+Weather comes from Open-Meteo and is stored in MariaDB table
+`store_weather_daily`, with one row per store and date. Temperatures are Celsius
+and precipitation is millimeters.
 
 ## Product crosswalk verification
 

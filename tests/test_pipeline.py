@@ -12,19 +12,40 @@ FACTS = ValidatedOrders("2026-07-31", 1, "abc", 10, "new_product_id")
 
 
 class PipelineTests(unittest.TestCase):
+    @patch("bzan545.pipeline.rebuild_analytics")
     @patch("bzan545.pipeline.sync_weather")
     @patch("bzan545.pipeline.run_ingestion")
-    def test_weather_uses_the_ingested_order_date(self, ingest, weather) -> None:
+    def test_weather_uses_the_ingested_order_date(
+        self, ingest, weather, rebuild_analytics
+    ) -> None:
         ingest.return_value = IngestionResult(True, facts=FACTS)
         self.assertEqual(run_daily_pipeline(), 0)
         weather.assert_called_once_with("2026-07-31")
+        rebuild_analytics.assert_called_once_with()
 
+    @patch("bzan545.pipeline.rebuild_analytics")
     @patch("bzan545.pipeline.sync_weather")
     @patch("bzan545.pipeline.run_ingestion")
-    def test_failed_ingestion_stops_before_weather(self, ingest, weather) -> None:
+    def test_failed_ingestion_stops_before_weather(
+        self, ingest, weather, rebuild_analytics
+    ) -> None:
         ingest.return_value = IngestionResult(False, error_message="failed")
         self.assertEqual(run_daily_pipeline(), 1)
         weather.assert_not_called()
+        rebuild_analytics.assert_not_called()
+
+    @patch("bzan545.pipeline.rebuild_analytics")
+    @patch("bzan545.pipeline.sync_weather")
+    @patch("bzan545.pipeline.run_ingestion")
+    def test_skip_weather_runs_ingestion_only(
+        self, ingest, weather, rebuild_analytics
+    ) -> None:
+        ingest.return_value = IngestionResult(True, facts=FACTS)
+
+        self.assertEqual(run_daily_pipeline(skip_weather=True), 0)
+
+        weather.assert_not_called()
+        rebuild_analytics.assert_not_called()
 
 
 if __name__ == "__main__":
