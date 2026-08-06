@@ -2,10 +2,10 @@ name: Daily data pipeline
 
 on:
   schedule:
-    # Run at noon Eastern, with a 1 PM retry.
-    - cron: "0 12 * * *"
+    # Avoid the top-of-hour Actions queue. Retry again an hour later.
+    - cron: "17 12 * * *"
       timezone: "America/New_York"
-    - cron: "0 13 * * *"
+    - cron: "17 13 * * *"
       timezone: "America/New_York"
   workflow_dispatch:
 
@@ -19,14 +19,14 @@ concurrency:
 jobs:
   ingest-and-enrich:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
 
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: pip
@@ -41,7 +41,24 @@ jobs:
       # synchronized separately from a UTK-connected machine.
       - name: Run daily orders ingestion
         id: pipeline
-        run: bzan545 daily --skip-weather
+        shell: bash
+        run: |
+          # The instructor's current-orders URL can briefly return 404 while
+          # the new daily file is being published. Retry that transient window
+          # without hiding a sustained outage or invalid file.
+          for attempt in 1 2 3; do
+            if bzan545 daily --skip-weather; then
+              exit 0
+            fi
+
+            if [[ "$attempt" -lt 3 ]]; then
+              echo "Orders are not available yet; retrying in 5 minutes."
+              sleep 300
+            fi
+          done
+
+          echo "Orders ingestion failed after 3 attempts."
+          exit 1
 
       - name: Commit generated data updates
         if: always()

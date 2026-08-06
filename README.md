@@ -73,9 +73,12 @@ is read-only. Preservation adds the separate no-overwrite and checksum checks.
 
 ## Automation and weather
 
-The workflow runs at 12:00 PM Eastern with a 1:00 PM retry. GitHub-hosted
-runners run the tests, execute `bzan545 daily --skip-weather`, and commit
-changes under `data/bronze/orders/` and `data/bronze/ingestion_log.csv`.
+The workflow runs at 12:17 PM Eastern with a 1:17 PM retry. Each run makes up
+to three ingestion attempts, five minutes apart, because the current-orders
+file can briefly be unavailable while the daily version is published.
+GitHub-hosted runners run the tests, execute `bzan545 daily --skip-weather`,
+and commit changes under `data/bronze/orders/` and
+`data/bronze/ingestion_log.csv`.
 Weather is skipped because UTK MariaDB is not reachable from GitHub's network.
 
 Run weather synchronization from a machine connected to the UTK network or VPN:
