@@ -199,10 +199,12 @@ def build_silver_orders() -> pd.DataFrame:
         missing,
         "canonical_product_name",
     ] = (
-        orders.loc[
+        "Unknown Product ("
+        + orders.loc[
             missing,
             "canonical_product_id",
-        ].map(new_name_lookup)
+        ].astype("string")
+        + ")"
     )
 
     # ----------------------------------------------------------
