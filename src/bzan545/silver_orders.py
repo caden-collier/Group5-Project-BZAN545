@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import pandas as pd
 
-
 from .config import (
     BRONZE_DIR,
     BRONZE_ORDERS_DIR,
@@ -17,6 +16,13 @@ NEW_PRODUCTS_PATH = (
     / "products"
     / "2026-07-29"
     / "new_products.csv"
+)
+
+LEGACY_PRODUCTS_PATH = (
+    BRONZE_DIR
+    / "products"
+    / "2026-07-29"
+    / "products.csv"
 )
 
 def parse_unit_prices(values: pd.Series) -> pd.Series:
@@ -123,48 +129,30 @@ def build_silver_orders() -> pd.DataFrame:
     # ----------------------------------------------------------
     # Load canonical crosswalk
     # ----------------------------------------------------------
-
     crosswalk = pd.read_csv(
-        PRODUCT_CROSSWALK_PATH,
-        dtype="string",
+    PRODUCT_CROSSWALK_PATH,
+    dtype="string",
     )
 
-    orders["canonical_product_id"] = pd.NA
-    orders["canonical_product_name"] = pd.NA
-
-    # -------------------------------
-    # Legacy orders
-    # -------------------------------
-
-    legacy_orders = orders["product_id"].notna()
-
-    orders = orders.merge(
-        crosswalk,
-        left_on="product_id",
-        right_on="legacy_product_id",
-        how="left",
+    # legacy -> canonical id
+    canonical_id_lookup = (
+        crosswalk
+        .dropna(subset=["legacy_product_id"])
+        .set_index("legacy_product_id")["canonical_product_id"]
     )
 
-    orders.loc[
-        legacy_orders,
-        "canonical_product_id",
-    ] = orders.loc[
-        legacy_orders,
-        "canonical_product_id_y",
-    ]
+    # canonical id -> product name
+    canonical_name_lookup = (
+        crosswalk
+        .set_index("canonical_product_id")["canonical_product_name"]
+    )
 
-    orders.loc[
-        legacy_orders,
-        "canonical_product_name",
-    ] = orders.loc[
-        legacy_orders,
-        "canonical_product_name_y",
-    ]
+    orders["canonical_product_id"] = (
+        orders["product_id"]
+        .map(canonical_id_lookup)
+    )
 
-    # -------------------------------
-    # Orders already using the new catalog
-    # -------------------------------
-
+    # New orders are already canonical.
     new_orders = (
         orders["new_product_id"].notna()
         & orders["canonical_product_id"].isna()
@@ -177,54 +165,97 @@ def build_silver_orders() -> pd.DataFrame:
         new_orders,
         "new_product_id",
     ]
+    
+    # First try the canonical crosswalk.
+    orders["canonical_product_name"] = (
+        orders["canonical_product_id"]
+        .map(canonical_name_lookup)
+    )
 
-    # Lookup names for brand new products
-
+    # Then fall back to the product master for future products.
     new_products = pd.read_csv(
         NEW_PRODUCTS_PATH,
         dtype="string",
-    )[
-        [
-            "new_product_id",
-            "item_name",
-        ]
-    ]
+    )
 
-    name_lookup = (
+    new_name_lookup = (
         new_products
         .set_index("new_product_id")["item_name"]
     )
 
-    missing_names = (
-        orders["canonical_product_name"].isna()
+    legacy_products = pd.read_csv(
+    LEGACY_PRODUCTS_PATH,
+    dtype="string",
     )
 
+    legacy_name_lookup = (
+        legacy_products
+        .set_index("product_id")["product_name"]
+    )
+
+    missing = orders["canonical_product_name"].isna()
+
     orders.loc[
-        missing_names,
+        missing,
         "canonical_product_name",
     ] = (
         orders.loc[
-            missing_names,
+            missing,
             "canonical_product_id",
-        ]
-        .map(name_lookup)
+        ].map(new_name_lookup)
     )
 
-    # Final validation
+    # ----------------------------------------------------------
+    # Preserve legacy products that have no replacement.
+    # ----------------------------------------------------------
 
-    if orders["canonical_product_id"].isna().any():
-        missing = (
+    unmatched_legacy = (
+        orders["canonical_product_id"].isna()
+        & orders["product_id"].notna()
+    )
+
+    orders.loc[
+        unmatched_legacy,
+        "canonical_product_id",
+    ] = orders.loc[
+        unmatched_legacy,
+        "product_id",
+    ]
+
+    orders.loc[
+        unmatched_legacy,
+        "canonical_product_name",
+    ] = (
+        orders.loc[
+            unmatched_legacy,
+            "product_id",
+        ]
+        .map(legacy_name_lookup)
+    )
+
+    # Final validation.
+    missing = orders["canonical_product_id"].isna()
+
+    if missing.any():
+        print(
+            "\nUnexpected orders still missing canonical IDs:\n"
+        )
+
+        print(
             orders.loc[
-                orders["canonical_product_id"].isna(),
-                "order_id",
+                missing,
+                [
+                    "order_id",
+                    "product_id",
+                    "new_product_id",
+                ],
             ]
-            .tolist()
         )
 
         raise ValueError(
-            "Orders missing canonical product IDs: "
-            + ", ".join(missing)
+            f"{missing.sum()} orders still have no canonical product ID."
         )
+    
 
     # unit_price is already the transaction selling price.
     orders["net_sales"] = (
