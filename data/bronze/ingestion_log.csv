@@ -28,3 +28,4 @@ timestamp_utc,order_date,status,row_count,file_size_bytes,sha256,error_message,s
 2026-08-04T05:32:49.632203+00:00,2026-08-04,success,98,6104,35e6a2ecb71ed9a8ae2eed6e8f810bce525d5612f40ae38d1487acf8881ba43a,,2026-08-04
 2026-08-05T16:22:22.494908+00:00,2026-08-05,success,155,9753,a9f5936b5ae688d0d485e8d3aa555f2aeaed4566b90ac324ddc6d4e073df534f,,2026-08-05
 2026-08-06T14:49:15.427421+00:00,,failure,,,,Could not download orders file: HTTP Error 404: Not Found,2026-08-06
+2026-08-07T17:05:35.192182+00:00,,failure,,,,Unexpected columns in orders.csv.,2026-08-07
