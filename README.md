@@ -73,20 +73,45 @@ is read-only. Preservation adds the separate no-overwrite and checksum checks.
 
 ## Automation and weather
 
-The workflow runs at 12:17 PM Eastern with a 1:17 PM retry. Each run makes up
-to three ingestion attempts, five minutes apart, because the current-orders
-file can briefly be unavailable while the daily version is published.
-GitHub-hosted runners run the tests, execute `bzan545 daily --skip-weather`,
-and commit changes under `data/bronze/orders/` and
-`data/bronze/ingestion_log.csv`.
-Weather is skipped because UTK MariaDB is not reachable from GitHub's network.
+The project uses two separate GitHub Actions workflows:
 
-Run weather synchronization from a machine connected to the UTK network or VPN:
+- **Daily orders ingestion** runs automatically at 12:17 PM Eastern and can
+  also be started manually. It runs the tests, makes up to three ingestion
+  attempts five minutes apart, and commits new bronze orders and ingestion-log
+  events. It uses a GitHub-hosted runner and does not require database access.
+- **UTK database pipeline** runs only when a group member starts it manually.
+  It uses a Windows self-hosted runner labeled `utk-vpn`, so the runner computer
+  must be online and connected to the UTK network or VPN. It backfills missing
+  weather, rebuilds silver and gold, publishes the gold MariaDB table, and
+  commits the validated silver and gold files.
+
+Before running the UTK database workflow, connect the runner computer to the
+UTK VPN and start its GitHub Actions runner. The repository must contain the
+`BZAN_DB_USERNAME` and `BZAN_DB_PASSWORD` Actions secrets. The optional
+`BZAN_DB_DATABASE` and `BZAN_DB_HOST` repository variables override the project
+defaults.
+
+One-time runner setup:
+
+1. Keep the repository private, then open **Settings > Actions > Runners** and
+   add a new Windows self-hosted runner.
+2. Follow GitHub's displayed installation commands and assign the runner the
+   custom label `utk-vpn`.
+3. Add `BZAN_DB_USERNAME` and `BZAN_DB_PASSWORD` under **Settings > Secrets and
+   variables > Actions**.
+
+For each database run, connect to the UTK VPN, start the runner with `run.cmd`,
+open **Actions > UTK database pipeline**, and select **Run workflow**. Stop the
+runner after the workflow finishes if the computer is not dedicated to this
+project.
+
+The same database steps can be run directly from a UTK-connected machine:
 
 ```powershell
 $env:BZAN_DB_USERNAME = "your NetID"
 $env:BZAN_DB_PASSWORD = "your database password"
-bzan545 weather YYYY-MM-DD
+bzan545 weather-backfill
+bzan545 rebuild
 ```
 
 Weather comes from Open-Meteo and is stored in MariaDB table

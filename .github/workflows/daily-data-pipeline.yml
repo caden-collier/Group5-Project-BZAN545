@@ -1,11 +1,8 @@
-name: Daily data pipeline
+name: Daily orders ingestion
 
 on:
   schedule:
-    # Avoid the top-of-hour Actions queue. Retry again an hour later.
     - cron: "17 12 * * *"
-      timezone: "America/New_York"
-    - cron: "17 13 * * *"
       timezone: "America/New_York"
   workflow_dispatch:
 
@@ -13,13 +10,13 @@ permissions:
   contents: write
 
 concurrency:
-  group: daily-data-pipeline
+  group: daily-orders
   cancel-in-progress: false
 
 jobs:
-  ingest-and-enrich:
+  ingest-orders:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 20
 
     steps:
       - name: Check out the repository
@@ -34,20 +31,14 @@ jobs:
       - name: Install the project
         run: python -m pip install --disable-pip-version-check -e .
 
-      - name: Run offline safety tests
+      - name: Run tests
         run: python -m unittest discover -s tests -v
 
-      # UTK MariaDB is not reachable from GitHub-hosted runners. Weather is
-      # synchronized separately from a UTK-connected machine.
-      - name: Run daily orders ingestion
-        id: pipeline
+      - name: Download today's orders
         shell: bash
         run: |
-          # The instructor's current-orders URL can briefly return 404 while
-          # the new daily file is being published. Retry that transient window
-          # without hiding a sustained outage or invalid file.
           for attempt in 1 2 3; do
-            if bzan545 daily --skip-weather; then
+            if bzan545 ingest; then
               exit 0
             fi
 
@@ -60,35 +51,21 @@ jobs:
           echo "Orders ingestion failed after 3 attempts."
           exit 1
 
-      - name: Commit generated data updates
+      - name: Commit orders and ingestion log
         if: always()
         shell: bash
-        env:
-          PIPELINE_OUTCOME: ${{ steps.pipeline.outcome }}
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          # Preserve new bronze orders and ingestion evidence,
-          # even if weather or analytics fails afterward.
           git add -- \
             data/bronze/orders \
             data/bronze/ingestion_log.csv
 
-          # Only stage silver and gold when the complete
-          # daily pipeline finished successfully.
-          if [[ "$PIPELINE_OUTCOME" == "success" ]]; then
-            git add -- \
-              data/silver/order_lines.csv \
-              data/gold/group5_rto_daily_sales_weather.csv \
-              data/gold/daily_sales_validation.json
-          fi
-
           if git diff --cached --quiet; then
-            echo "No new repository data to commit."
+            echo "No new orders data to commit."
             exit 0
           fi
 
-          git commit -m "Update daily data pipeline"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Update daily orders data"
           git pull --rebase origin main
-          git push
+          git push origin main
