@@ -256,6 +256,19 @@ def build_gold_sales() -> pd.DataFrame:
         gold["canonical_product_name"].isna().sum()
     )
 
+    if missing_product_name_rows:
+        print("\nRows missing canonical product names:\n")
+        print(
+            gold.loc[
+                gold["canonical_product_name"].isna(),
+                [
+                    "canonical_product_id",
+                    "order_date",
+                    "store_id",
+                ],
+            ]
+        )
+
     duplicate_grain_rows = int(
         gold.duplicated(
             subset=GRAIN_COLUMNS,

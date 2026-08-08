@@ -15,7 +15,7 @@ GOLD_DIR = DATA_DIR / "gold"
 BRONZE_ORDERS_DIR = BRONZE_DIR / "orders"
 INGESTION_LOG_PATH = BRONZE_DIR / "ingestion_log.csv"
 
-PRODUCT_CROSSWALK_PATH = SILVER_DIR / "product_crosswalk.csv"
+PRODUCT_CROSSWALK_PATH = SILVER_DIR / "canonical_product_crosswalk.csv"
 SILVER_ORDERS_PATH = SILVER_DIR / "order_lines.csv"
 GOLD_SALES_PATH = GOLD_DIR / "group5_rto_daily_sales_weather.csv"
 GOLD_VALIDATION_PATH = GOLD_DIR / "daily_sales_validation.json"
