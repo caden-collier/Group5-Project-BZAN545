@@ -148,7 +148,7 @@ one store:
 
 The table includes:
 
-- canonical product ID and product name
+- canonical product ID, name, brand, category, and subcategory
 - store name and location information
 - distinct order count
 - units sold
@@ -163,15 +163,16 @@ Weather is joined using `store_id` and `order_date`.
 
 ### Product reconciliation
 
-Legacy products retain their original product IDs.
+Approved crosswalk rows map legacy product IDs to canonical migrated IDs. New
+product IDs are already canonical, including products that do not have a legacy
+predecessor. Legacy products without a replacement retain their original ID.
 
-New products with exact crosswalk matches use the proposed legacy
-product ID.
-
-Products requiring review remain separate using a `NEW:` prefix.
-
-Products missing from the product master remain separate using an
-`UNMAPPED:` prefix.
+Product attributes come from the newest complete bronze product snapshot.
+Migrated products use `brand_name`, `department`, and `class` as their canonical
+brand, category, and subcategory. Future products in a refreshed snapshot are
+available to the dashboard without requiring a legacy match. An order whose ID
+is absent from every product snapshot is retained with explicit `Unknown`
+product attributes so its units and sales are never dropped.
 
 ### Outputs
 

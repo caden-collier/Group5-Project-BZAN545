@@ -11,19 +11,141 @@ from .config import (
     SILVER_ORDERS_PATH,
 )
 
-NEW_PRODUCTS_PATH = (
-    BRONZE_DIR
-    / "products"
-    / "2026-07-29"
-    / "new_products.csv"
-)
+PRODUCT_ATTRIBUTE_COLUMNS = [
+    "canonical_product_name",
+    "canonical_brand",
+    "canonical_category",
+    "canonical_subcategory",
+]
 
-LEGACY_PRODUCTS_PATH = (
-    BRONZE_DIR
-    / "products"
-    / "2026-07-29"
-    / "products.csv"
-)
+
+def latest_product_snapshot() -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Read the newest complete legacy/new product snapshot."""
+    snapshot_dirs = sorted(
+        path
+        for path in (BRONZE_DIR / "products").iterdir()
+        if path.is_dir()
+        and (path / "products.csv").exists()
+        and (path / "new_products.csv").exists()
+    )
+
+    if not snapshot_dirs:
+        raise FileNotFoundError(
+            "No complete product snapshot contains products.csv and "
+            "new_products.csv."
+        )
+
+    snapshot = snapshot_dirs[-1]
+    return (
+        pd.read_csv(snapshot / "products.csv", dtype="string"),
+        pd.read_csv(snapshot / "new_products.csv", dtype="string"),
+    )
+
+
+def build_product_dimension(
+    crosswalk: pd.DataFrame,
+    legacy_products: pd.DataFrame,
+    new_products: pd.DataFrame,
+) -> pd.DataFrame:
+    """Create one dashboard-ready row for every known canonical product."""
+    required_crosswalk = {
+        "legacy_product_id",
+        "canonical_product_id",
+        "canonical_product_name",
+    }
+    required_legacy = {
+        "product_id",
+        "product_name",
+        "brand",
+        "category",
+        "subcategory",
+    }
+    required_new = {
+        "new_product_id",
+        "item_name",
+        "brand_name",
+        "department",
+        "class",
+    }
+
+    for label, frame, required in [
+        ("crosswalk", crosswalk, required_crosswalk),
+        ("legacy products", legacy_products, required_legacy),
+        ("new products", new_products, required_new),
+    ]:
+        missing = sorted(required - set(frame.columns))
+        if missing:
+            raise ValueError(f"{label} are missing columns: {', '.join(missing)}")
+
+    if crosswalk["canonical_product_id"].duplicated().any():
+        raise ValueError("Crosswalk contains duplicate canonical product IDs.")
+
+    approved_names = crosswalk.set_index("canonical_product_id")[
+        "canonical_product_name"
+    ]
+
+    new_dimension = new_products[
+        [
+            "new_product_id",
+            "item_name",
+            "brand_name",
+            "department",
+            "class",
+        ]
+    ].rename(
+        columns={
+            "new_product_id": "canonical_product_id",
+            "item_name": "source_product_name",
+            "brand_name": "canonical_brand",
+            "department": "canonical_category",
+            "class": "canonical_subcategory",
+        }
+    )
+    new_dimension["canonical_product_name"] = (
+        new_dimension["canonical_product_id"]
+        .map(approved_names)
+        .fillna(new_dimension["source_product_name"])
+    )
+    new_dimension = new_dimension.drop(columns=["source_product_name"])
+
+    missing_master_rows = crosswalk.loc[
+        ~crosswalk["canonical_product_id"].isin(
+            new_dimension["canonical_product_id"]
+        ),
+        ["canonical_product_id", "canonical_product_name"],
+    ].copy()
+    for column, value in {
+        "canonical_brand": "Unknown Brand",
+        "canonical_category": "Unknown Category",
+        "canonical_subcategory": "Unknown Subcategory",
+    }.items():
+        missing_master_rows[column] = value
+
+    mapped_legacy_ids = set(crosswalk["legacy_product_id"].dropna())
+    unmatched_legacy = legacy_products.loc[
+        ~legacy_products["product_id"].isin(mapped_legacy_ids),
+        ["product_id", "product_name", "brand", "category", "subcategory"],
+    ].rename(
+        columns={
+            "product_id": "canonical_product_id",
+            "product_name": "canonical_product_name",
+            "brand": "canonical_brand",
+            "category": "canonical_category",
+            "subcategory": "canonical_subcategory",
+        }
+    )
+
+    dimension = pd.concat(
+        [new_dimension, missing_master_rows, unmatched_legacy],
+        ignore_index=True,
+    )
+    if dimension["canonical_product_id"].duplicated().any():
+        raise ValueError("Product dimension contains duplicate canonical IDs.")
+
+    return dimension[
+        ["canonical_product_id", *PRODUCT_ATTRIBUTE_COLUMNS]
+    ]
+
 
 def parse_unit_prices(values: pd.Series) -> pd.Series:
     """Convert plain or dollar-formatted transaction prices to numbers."""
@@ -130,21 +252,15 @@ def build_silver_orders() -> pd.DataFrame:
     # Load canonical crosswalk
     # ----------------------------------------------------------
     crosswalk = pd.read_csv(
-    PRODUCT_CROSSWALK_PATH,
-    dtype="string",
+        PRODUCT_CROSSWALK_PATH,
+        dtype="string",
     )
 
-    # legacy -> canonical id
+    # Legacy -> canonical ID. New IDs are already canonical.
     canonical_id_lookup = (
         crosswalk
         .dropna(subset=["legacy_product_id"])
         .set_index("legacy_product_id")["canonical_product_id"]
-    )
-
-    # canonical id -> product name
-    canonical_name_lookup = (
-        crosswalk
-        .set_index("canonical_product_id")["canonical_product_name"]
     )
 
     orders["canonical_product_id"] = (
@@ -165,52 +281,7 @@ def build_silver_orders() -> pd.DataFrame:
         new_orders,
         "new_product_id",
     ]
-    
-    # First try the canonical crosswalk.
-    orders["canonical_product_name"] = (
-        orders["canonical_product_id"]
-        .map(canonical_name_lookup)
-    )
-
-    # Then fall back to the product master for future products.
-    new_products = pd.read_csv(
-        NEW_PRODUCTS_PATH,
-        dtype="string",
-    )
-
-    new_name_lookup = (
-        new_products
-        .set_index("new_product_id")["item_name"]
-    )
-
-    legacy_products = pd.read_csv(
-    LEGACY_PRODUCTS_PATH,
-    dtype="string",
-    )
-
-    legacy_name_lookup = (
-        legacy_products
-        .set_index("product_id")["product_name"]
-    )
-
-    missing = orders["canonical_product_name"].isna()
-
-    orders.loc[
-        missing,
-        "canonical_product_name",
-    ] = (
-        "Unknown Product ("
-        + orders.loc[
-            missing,
-            "canonical_product_id",
-        ].astype("string")
-        + ")"
-    )
-
-    # ----------------------------------------------------------
-    # Preserve legacy products that have no replacement.
-    # ----------------------------------------------------------
-
+    # Preserve legacy products that have no canonical replacement.
     unmatched_legacy = (
         orders["canonical_product_id"].isna()
         & orders["product_id"].notna()
@@ -224,18 +295,7 @@ def build_silver_orders() -> pd.DataFrame:
         "product_id",
     ]
 
-    orders.loc[
-        unmatched_legacy,
-        "canonical_product_name",
-    ] = (
-        orders.loc[
-            unmatched_legacy,
-            "product_id",
-        ]
-        .map(legacy_name_lookup)
-    )
-
-    # Final validation.
+    # Final ID validation.
     missing = orders["canonical_product_id"].isna()
 
     if missing.any():
@@ -257,7 +317,31 @@ def build_silver_orders() -> pd.DataFrame:
         raise ValueError(
             f"{missing.sum()} orders still have no canonical product ID."
         )
-    
+    legacy_products, new_products = latest_product_snapshot()
+    product_dimension = build_product_dimension(
+        crosswalk,
+        legacy_products,
+        new_products,
+    )
+    orders = orders.merge(
+        product_dimension,
+        on="canonical_product_id",
+        how="left",
+        validate="many_to_one",
+    )
+
+    unknown_products = orders["canonical_product_name"].isna()
+    orders.loc[unknown_products, "canonical_product_name"] = (
+        "Unknown Product ("
+        + orders.loc[unknown_products, "canonical_product_id"]
+        + ")"
+    )
+    for column, value in {
+        "canonical_brand": "Unknown Brand",
+        "canonical_category": "Unknown Category",
+        "canonical_subcategory": "Unknown Subcategory",
+    }.items():
+        orders[column] = orders[column].fillna(value)
 
     # unit_price is already the transaction selling price.
     orders["net_sales"] = (
@@ -273,6 +357,9 @@ def build_silver_orders() -> pd.DataFrame:
         "new_product_id",
         "canonical_product_id",
         "canonical_product_name",
+        "canonical_brand",
+        "canonical_category",
+        "canonical_subcategory",
         "quantity",
         "unit_price",
         "discount_pct",

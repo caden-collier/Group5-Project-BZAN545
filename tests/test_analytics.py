@@ -41,32 +41,26 @@ class AnalyticsOutputTests(unittest.TestCase):
 
         self.assertEqual(duplicate_count, 0)
 
-    def test_uncertain_products_remain_separate(self) -> None:
-        review_rows = self.silver[
-            self.silver[
-                "reconciliation_status"
-            ].eq("review_required")
+    def test_unknown_products_remain_separate(self) -> None:
+        unknown_rows = self.silver[
+            self.silver["canonical_product_name"]
+            .astype(str)
+            .str.startswith("Unknown Product (")
         ]
 
         self.assertTrue(
-            review_rows["canonical_product_id"]
-            .astype(str)
-            .str.startswith("NEW:")
-            .all()
+            unknown_rows["canonical_product_id"].notna().all()
         )
 
-        unmapped_rows = self.silver[
-            self.silver[
-                "reconciliation_status"
-            ].eq("missing_from_crosswalk")
+    def test_silver_product_attributes_are_complete(self) -> None:
+        columns = [
+            "canonical_brand",
+            "canonical_category",
+            "canonical_subcategory",
         ]
 
-        self.assertTrue(
-            unmapped_rows["canonical_product_id"]
-            .astype(str)
-            .str.startswith("UNMAPPED:")
-            .all()
-        )
+        self.assertTrue(set(columns) <= set(self.silver.columns))
+        self.assertFalse(self.silver[columns].isna().any().any())
 
     def test_product_names_are_complete(self) -> None:
         self.assertEqual(
