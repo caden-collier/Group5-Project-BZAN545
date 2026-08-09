@@ -180,3 +180,12 @@ product attributes so its units and sales are never dropped.
 - `data/gold/group5_rto_daily_sales_weather.csv`
 - `data/gold/daily_sales_validation.json`
 - MariaDB table `group5_rto_daily_sales_weather`
+
+### Ai disclosure
+
+We used Ai to help guide us through debugging code.
+
+Platforms used:
+- Claude, chatgpt, codex, copilot
+
+Also used Ai to help with flow and structure of presentation (and with design of a few slides)
