@@ -64,6 +64,9 @@ def build_gold_sales() -> pd.DataFrame:
         "store_id",
         "canonical_product_id",
         "canonical_product_name",
+        "canonical_brand",
+        "canonical_category",
+        "canonical_subcategory",
         "quantity",
         "net_sales",
     }
@@ -111,33 +114,34 @@ def build_gold_sales() -> pd.DataFrame:
         errors="raise",
     )
 
-    product_names = orders[
+    product_attributes = orders[
         [
             "canonical_product_id",
             "canonical_product_name",
+            "canonical_brand",
+            "canonical_category",
+            "canonical_subcategory",
         ]
     ].drop_duplicates()
 
-    product_name_counts = (
-        product_names.groupby(
-            "canonical_product_id"
-        )["canonical_product_name"]
-        .nunique(dropna=False)
+    product_attribute_counts = (
+        product_attributes.groupby("canonical_product_id")
+        .size()
     )
 
-    conflicting_product_names = (
-        product_name_counts[
-            product_name_counts > 1
+    conflicting_products = (
+        product_attribute_counts[
+            product_attribute_counts > 1
         ].index.tolist()
     )
 
-    if conflicting_product_names:
+    if conflicting_products:
         raise ValueError(
-            "Canonical products have conflicting names: "
-            + ", ".join(conflicting_product_names)
+            "Canonical products have conflicting attributes: "
+            + ", ".join(conflicting_products)
         )
 
-    product_names = product_names.drop_duplicates(
+    product_attributes = product_attributes.drop_duplicates(
         subset=["canonical_product_id"]
     )
 
@@ -159,7 +163,7 @@ def build_gold_sales() -> pd.DataFrame:
     )
 
     daily_sales = daily_sales.merge(
-        product_names,
+        product_attributes,
         on="canonical_product_id",
         how="left",
         validate="many_to_one",
@@ -255,6 +259,15 @@ def build_gold_sales() -> pd.DataFrame:
     missing_product_name_rows = int(
         gold["canonical_product_name"].isna().sum()
     )
+    missing_product_attribute_rows = int(
+        gold[
+            [
+                "canonical_brand",
+                "canonical_category",
+                "canonical_subcategory",
+            ]
+        ].isna().any(axis=1).sum()
+    )
 
     if missing_product_name_rows:
         print("\nRows missing canonical product names:\n")
@@ -308,6 +321,7 @@ def build_gold_sales() -> pd.DataFrame:
         "missing_store_rows": missing_store_rows,
         "missing_weather_rows": missing_weather_rows,
         "missing_product_name_rows": missing_product_name_rows,
+        "missing_product_attribute_rows": missing_product_attribute_rows,
         "silver_units": silver_units,
         "gold_units": gold_units,
         "units_difference": units_difference,
@@ -325,6 +339,7 @@ def build_gold_sales() -> pd.DataFrame:
             missing_store_rows == 0,
             missing_weather_rows == 0,
             missing_product_name_rows == 0,
+            missing_product_attribute_rows == 0,
             abs(units_difference) < 0.000001,
             abs(net_sales_difference) < 0.01,
         ]
@@ -343,6 +358,9 @@ def build_gold_sales() -> pd.DataFrame:
         "store_id",
         "canonical_product_id",
         "canonical_product_name",
+        "canonical_brand",
+        "canonical_category",
+        "canonical_subcategory",
         "store_name",
         "city",
         "state",
