@@ -9,6 +9,8 @@ bronze/
 silver/
   product_crosswalk.csv    Proposed new-to-legacy match candidates
   product_crosswalk_summary.json
+  product_crosswalk_review.csv
+                            Decisions for every review-required proposal
   canonical_product_crosswalk.csv
                             Approved legacy-to-canonical mappings
   order_lines.csv           Cleaned orders with canonical product details
@@ -28,6 +30,12 @@ The ingestion log's `timestamp_utc` is the time the event was written. For a
 replay event, it is therefore the replay time; `order_date` remains the business
 date contained in the source file.
 
+Each new attempt also receives a unique `run_id` and records its `source_uri`.
+Successful reruns with the same business date and file hash are idempotently
+deduplicated. Failed attempts remain separate so retry history is not lost.
+`schema_variant` records whether the capture used `product_id` or
+`new_product_id`. Existing logs are migrated to this schema on the next write.
+
 ## Product reconciliation policy
 
 `product_crosswalk.csv` is a review aid, not the mapping used directly by the
@@ -36,11 +44,20 @@ product using name, brand, and price similarity. Exact normalized-name matches
 are identified automatically; non-exact matches and repeated legacy candidates
 are marked `review_required` for a human decision.
 
-`canonical_product_crosswalk.csv` contains the approved production mappings.
-It maps legacy product IDs to canonical migrated IDs. New order files already
-use canonical IDs, including products with no legacy predecessor. Legacy
-products without an approved replacement retain their original ID so their
-sales are not lost.
+Every `review_required` row receives
+an explicit decision in `product_crosswalk_review.csv` based on product type,
+brand, price, competing candidates, and collision resolution.
+
+The reviewed decisions are materialized in
+`canonical_product_crosswalk.csv`, which is the only crosswalk consumed by the
+silver pipeline. Of the 20 flagged proposals, 14 were accepted, five were kept
+as new products with no legacy predecessor, and one was corrected to a different
+legacy product. This prevents uncertain or category-incompatible suggestions
+from silently combining unrelated sales histories.
+
+New order files already use canonical IDs, including products with no legacy
+predecessor. Legacy products without an approved replacement retain their
+original ID so their sales are not lost.
 
 ## Silver orders
 

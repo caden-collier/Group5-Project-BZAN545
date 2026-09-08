@@ -1,0 +1,21 @@
+new_product_id,new_product_name,proposed_legacy_product_id,match_score,canonical_legacy_product_id,review_decision,review_basis,reviewed_on
+NP5002,RidgeRover Mid Trail Shoes 201,P1002,0.999,P1002,accepted,"Identical product name and brand with a near-identical price; the competing new product is a distinct product with no predecessor.",2026-09-08
+NP5015,MoonRambler Ultralight Camp Chair 214,P1015,0.9994,P1015,accepted,"Identical product name and brand with a near-identical price; the competing rain-shell proposal is rejected as a category mismatch.",2026-09-08
+NP5057,PineRunner 4P Tent 256 Pro,P1057,0.8191,P1057,accepted,"Same product family and tent type with a close price; RTO House Brand is treated as the Rocky Top Outfitters house-brand label.",2026-09-08
+NP5059,BoulderRambler Rechargeable Flashlight 258 Pro,P1059,0.9651,P1059,accepted,"Same product stem, type, and brand with a close price; Pro indicates the migrated version.",2026-09-08
+NP5061,FieldRunner Packable Jacket 260 Pro,P1061,0.9135,P1061,accepted,"Same product stem and type with a close price; Blue Ridge Outdoor Works and Blue Ridge Works are treated as the same brand label.",2026-09-08
+NP5063,MoonRambler Ultralight Camp Chair 262 Pro,P1063,0.9607,P1063,accepted,"Same product stem, type, and brand with a close price; Pro indicates the migrated version.",2026-09-08
+NP5065,SummitRunner Mini Battery Pack 264 Pro,P1065,0.8365,P1065,accepted,"Same product stem and type with a close price; RTO House Brand is treated as the Rocky Top Outfitters house-brand label.",2026-09-08
+NP5067,CreekRambler Alpine Jacket 266 Pro,P1067,0.949,P1067,accepted,"Same product stem, type, and brand with a close price; Pro indicates the migrated version.",2026-09-08
+NP5069,BoulderNomad Patio Heater,P1070,0.7115,P1070,accepted,"Both records are Summit Finch patio heaters with close prices; product type and brand outweigh the small score margin.",2026-09-08
+NP5070,FieldPacer Insulated Tumbler,P1072,0.5352,P1072,accepted,"Both records are TrailForge tumblers with close prices; the lower text score reflects a renamed product family.",2026-09-08
+NP5071,MoonScout Trail Shoes,P1002,0.6493,,no_legacy_predecessor,"The proposed legacy record belongs to the identically named NP5002; this differently named product remains new.",2026-09-08
+NP5072,SummitRover Cooler,P1076,0.6139,P1076,accepted,"Both records are Moss and Mile coolers in a similar price tier; the lower text score reflects a renamed product family.",2026-09-08
+NP5073,FieldRunner Battery Pack,P1077,0.798,,no_legacy_predecessor,"P1077 is assigned to NP5077, whose price is closer to the legacy record; this base variant remains new.",2026-09-08
+NP5074,SwitchbackRover Insulated Tumbler,P1078,0.8063,,no_legacy_predecessor,"P1078 is assigned to NP5078, whose price is closer to the legacy record; this base variant remains new.",2026-09-08
+NP5075,MoonRambler Rain Shell,P1079,0.6751,,no_legacy_predecessor,"P1079 is assigned to NP5079, whose price is closer to the legacy record; this base variant remains new.",2026-09-08
+NP5076,PeakNomad Trail Shoes,P1080,0.8068,,no_legacy_predecessor,"P1080 is assigned to NP5080, whose price is closer to the legacy record; this base variant remains new.",2026-09-08
+NP5077,FieldRunner Battery Pack Alt,P1077,0.7876,P1077,accepted,"Same product family, type, and normalized brand; this variant is the closest price match among the collision candidates.",2026-09-08
+NP5078,SwitchbackRover Insulated Tumbler Alt,P1078,0.8038,P1078,accepted,"Same product family, type, and brand; this variant is the closest price match among the collision candidates.",2026-09-08
+NP5079,MoonRambler Rain Shell Alt,P1015,0.676,P1079,corrected,"The proposed P1015 is a camp chair and therefore a category mismatch; P1079 is the same brand and rain-shell product family with a close price.",2026-09-08
+NP5080,PeakNomad Trail Shoes Alt,P1080,0.8015,P1080,accepted,"Same product family, type, and brand; this variant is the closest price match among the collision candidates.",2026-09-08

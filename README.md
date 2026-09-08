@@ -1,5 +1,7 @@
 # Group 5 BZAN 545 data pipeline
 
+**[View the project showcase](https://rubenrodriguez23.github.io/Group5-Project-BZAN545/)**
+
 This project captures daily orders, records each ingestion attempt, and adds
 store-level weather data. The repository uses a simple bronze, silver, and gold
 layout so it is clear how far each dataset has moved from its source.
@@ -129,6 +131,13 @@ The tests check the matching rules with small examples and verify that every
 real migrated product appears exactly once in the silver crosswalk, proposed
 legacy IDs exist, and scores are valid. A test cannot establish the business
 correctness of a proposed mapping, so uncertain matches remain a human decision.
+
+The 20 flagged proposals have an auditable sign-off in
+`data/silver/product_crosswalk_review.csv`: 14 were accepted, five were retained
+as new products without a legacy predecessor, and one category-incompatible
+proposal was corrected. The production pipeline reads only
+`data/silver/canonical_product_crosswalk.csv`, and automated checks ensure that
+the review register and canonical mapping stay aligned.
 
 ## Analytics-ready daily sales table
 

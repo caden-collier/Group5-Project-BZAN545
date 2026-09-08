@@ -73,6 +73,46 @@ class ProductCrosswalkTests(unittest.TestCase):
         )
         self.assertTrue(crosswalk["match_score"].between(0, 1).all())
 
+    def test_review_register_matches_the_canonical_decisions(self) -> None:
+        proposals = pd.read_csv(SILVER_DIR / "product_crosswalk.csv")
+        reviews = pd.read_csv(SILVER_DIR / "product_crosswalk_review.csv")
+        canonical = pd.read_csv(
+            SILVER_DIR / "canonical_product_crosswalk.csv",
+            dtype={"legacy_product_id": "string"},
+        )
+
+        flagged_ids = set(
+            proposals.loc[
+                proposals["match_status"].eq("review_required"),
+                "new_product_id",
+            ]
+        )
+        self.assertEqual(set(reviews["new_product_id"]), flagged_ids)
+        self.assertFalse(reviews["new_product_id"].duplicated().any())
+        self.assertTrue(reviews["review_basis"].str.strip().ne("").all())
+        self.assertTrue(reviews["reviewed_on"].str.fullmatch(r"\d{4}-\d{2}-\d{2}").all())
+        self.assertTrue(
+            set(reviews["review_decision"])
+            <= {"accepted", "corrected", "no_legacy_predecessor"}
+        )
+
+        canonical_by_new = canonical.set_index("canonical_product_id")[
+            "legacy_product_id"
+        ]
+        for review in reviews.itertuples(index=False):
+            actual = canonical_by_new.loc[review.new_product_id]
+            expected = review.canonical_legacy_product_id
+            if review.review_decision == "no_legacy_predecessor":
+                self.assertTrue(pd.isna(actual))
+                self.assertTrue(pd.isna(expected))
+            else:
+                self.assertEqual(actual, expected)
+
+        mapped = canonical["legacy_product_id"].dropna()
+        self.assertFalse(mapped.duplicated().any())
+        self.assertFalse(canonical["canonical_product_id"].duplicated().any())
+        self.assertIn("corrected", set(reviews["review_decision"]))
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#111510" />
+    <meta
+      name="description"
+      content="A production-minded Python data pipeline that turns daily retail orders and weather into validated, analytics-ready sales data."
+    />
+    <meta property="og:title" content="Rocky Top Outfitters — Weather-Aware Sales Pipeline" />
+    <meta
+      property="og:description"
+      content="See how Group 5 built an automated bronze-to-gold retail data pipeline with validation, reconciliation, weather enrichment, and CI."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://rubenrodriguez23.github.io/Group5-Project-BZAN545/assets/project-overview.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>Rocky Top Outfitters | Data Pipeline Case Study</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Rocky Top pipeline home">
+        <span class="brand-mark" aria-hidden="true">RTO</span>
+        <span>Data Engineering Case Study</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#architecture">Architecture</a>
+        <a href="#quality">Quality</a>
+        <a href="#results">Results</a>
+        <a class="nav-cta" href="https://github.com/rubenrodriguez23/Group5-Project-BZAN545">View repository</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top">
+        <div class="hero-copy reveal">
+          <p class="eyebrow"><span></span>BZAN 545 · Group 5 Project</p>
+          <h1>From daily orders to <em>decision-ready</em> retail data.</h1>
+          <p class="hero-summary">
+            We designed a production-minded Python pipeline that preserves raw sales,
+            reconciles changing product IDs, enriches transactions with local weather,
+            and publishes a validated analytics table.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#architecture">Explore the pipeline <span aria-hidden="true">↘</span></a>
+            <a class="button secondary" href="https://github.com/rubenrodriguez23/Group5-Project-BZAN545">Browse the code</a>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal" aria-label="Pipeline validation summary">
+          <div class="visual-head">
+            <span>Latest validated build</span>
+            <span class="status"><i></i>Passed</span>
+          </div>
+          <div class="metric-feature">
+            <span class="metric-label">Analyzed net sales</span>
+            <strong>$1,057,816.16</strong>
+            <span class="metric-detail">23 selling days · 8 stores · 86 products</span>
+          </div>
+          <div class="mini-chart" id="sales-chart" role="img" aria-label="Daily net sales trend from July 12 to August 9, 2026"></div>
+          <div class="visual-foot">
+            <span><b>2,586</b> gold rows</span>
+            <span><b>0</b> missing joins</span>
+            <span><b>0</b> duplicate grains</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="proof-strip" aria-label="Project technologies">
+        <span>Python 3.11+</span><span>Pandas</span><span>SQLAlchemy</span><span>MariaDB</span><span>Open-Meteo</span><span>GitHub Actions</span>
+      </section>
+
+      <section class="story section-shell" id="architecture">
+        <div class="section-intro reveal">
+          <p class="section-number">01 / Architecture</p>
+          <h2>A pipeline built for traceability, not just a one-time result.</h2>
+          <p>Each layer has one job. Raw evidence remains immutable, transformations stay inspectable, and the final table is shaped for analysis.</p>
+        </div>
+
+        <div class="pipeline reveal">
+          <article class="pipeline-card bronze">
+            <div class="card-top"><span>01</span><code>data/bronze</code></div>
+            <h3>Preserve the source</h3>
+            <p>Daily order captures are stored exactly as received, checksummed with SHA-256, and logged without silent overwrites.</p>
+            <ul><li>Atomic, idempotent writes</li><li>Append-only audit history</li><li>Schema and content checks</li></ul>
+          </article>
+          <div class="flow-arrow" aria-hidden="true">→</div>
+          <article class="pipeline-card silver">
+            <div class="card-top"><span>02</span><code>data/silver</code></div>
+            <h3>Reconcile the detail</h3>
+            <p>Changing product systems are mapped to canonical IDs through weighted scoring followed by an auditable human decision for every uncertain candidate.</p>
+            <ul><li>60 automatic matches</li><li>20 flagged matches reviewed</li><li>6 suggestions overridden</li></ul>
+          </article>
+          <div class="flow-arrow" aria-hidden="true">→</div>
+          <article class="pipeline-card gold">
+            <div class="card-top"><span>03</span><code>data/gold</code></div>
+            <h3>Publish with confidence</h3>
+            <p>Sales are aggregated by date, store, and product, then joined to store dimensions and daily weather.</p>
+            <ul><li>Analytics-ready grain</li><li>CSV and MariaDB outputs</li><li>Pre-publish validation gate</li></ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="quality section-shell" id="quality">
+        <div class="quality-copy reveal">
+          <p class="section-number">02 / Engineering quality</p>
+          <h2>The pipeline fails loudly when the data is wrong.</h2>
+          <p>
+            Validation is part of the product. Empty downloads, HTML responses, unexpected columns,
+            invalid dates, conflicting captures, incomplete joins, and broken totals stop publication.
+          </p>
+          <p>
+            The same discipline applies to entity resolution: every flagged product match has a recorded
+            decision and rationale, and the pipeline consumes only the approved canonical mapping.
+          </p>
+          <div class="evidence-badges">
+            <div class="test-badge"><span>29 / 29</span> automated tests passing</div>
+            <div class="test-badge"><span>20 / 20</span> flagged matches adjudicated</div>
+          </div>
+          <a class="text-link" href="https://github.com/rubenrodriguez23/Group5-Project-BZAN545/tree/main/tests">Review the test suite <span aria-hidden="true">→</span></a>
+        </div>
+
+        <div class="terminal reveal" aria-label="Example validation report">
+          <div class="terminal-bar"><span></span><span></span><span></span><code>daily_sales_validation.json</code></div>
+          <pre><span class="muted">{</span>
+  <span class="key">"gold_rows"</span>: <span class="value">2447</span>,
+  <span class="key">"duplicate_grain_rows"</span>: <span class="good">0</span>,
+  <span class="key">"missing_store_rows"</span>: <span class="good">0</span>,
+  <span class="key">"missing_weather_rows"</span>: <span class="good">0</span>,
+  <span class="key">"units_difference"</span>: <span class="good">0.0</span>,
+  <span class="key">"net_sales_difference"</span>: <span class="good">0.0</span>,
+  <span class="key">"validation_passed"</span>: <span class="good">true</span>
+<span class="muted">}</span></pre>
+        </div>
+      </section>
+
+      <section class="automation section-shell">
+        <div class="section-intro compact reveal">
+          <p class="section-number">03 / Automation</p>
+          <h2>Repeatable by design.</h2>
+          <p>Two GitHub Actions workflows separate public ingestion from network-restricted database work.</p>
+        </div>
+        <div class="timeline reveal">
+          <article><span class="timeline-icon">↓</span><div><small>12:17 PM ET · DAILY</small><h3>Ingest orders</h3><p>Run tests, retry source downloads, preserve the capture, and commit the audit event.</p></div></article>
+          <article><span class="timeline-icon">☁</span><div><small>ON DEMAND · UTK VPN</small><h3>Enrich & rebuild</h3><p>Backfill store weather, rebuild silver and gold, then publish to MariaDB.</p></div></article>
+          <article><span class="timeline-icon">✓</span><div><small>BEFORE PUBLISH</small><h3>Validate outputs</h3><p>Reconcile units and sales, test joins and grain, and confirm SQL/CSV row parity.</p></div></article>
+        </div>
+      </section>
+
+      <section class="results section-shell" id="results">
+        <div class="results-head reveal">
+          <div><p class="section-number">04 / Outcomes</p><h2>What the finished data supports.</h2></div>
+          <p>A clean analytical foundation for investigating how weather, store, and product mix move retail performance.</p>
+        </div>
+        <div class="outcome-grid reveal">
+          <article><strong>5,608</strong><span>units reconciled end to end</span></article>
+          <article><strong>6</strong><span>algorithmic suggestions overridden</span></article>
+          <article><strong>22</strong><span>selling days enriched</span></article>
+          <article><strong>1</strong><span>trusted analytical grain</span></article>
+        </div>
+        <div class="insight-grid reveal">
+          <article><span>Question 01</span><h3>How does precipitation affect daily sales by store?</h3><p>Weather and sales share the same store-date keys, making the relationship directly explorable.</p></article>
+          <article><span>Question 02</span><h3>Which products and categories drive each region?</h3><p>Canonical product attributes survive the migration and are joined to every analytical row.</p></article>
+          <article><span>Question 03</span><h3>Can stakeholders trust the totals?</h3><p>Units and net sales reconcile from detailed silver orders through the published gold table.</p></article>
+        </div>
+      </section>
+
+      <section class="team section-shell reveal">
+        <p class="section-number">The team</p>
+        <div class="team-layout">
+          <h2>Built collaboratively at the University of Tennessee.</h2>
+          <div class="team-names">
+            <span>Caden Collier</span><span>Ian Skelly</span><span>Ruben Rodriguez</span><span>Macie Hough</span><span>Madelyn Mundt</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta-section section-shell reveal">
+        <p class="eyebrow"><span></span>Explore the implementation</p>
+        <h2>See the decisions behind the data.</h2>
+        <p>The repository includes the complete pipeline, automated tests, validation outputs, documentation, and milestone history.</p>
+        <a class="button primary light" href="https://github.com/rubenrodriguez23/Group5-Project-BZAN545">Open GitHub repository <span aria-hidden="true">↗</span></a>
+      </section>
+    </main>
+
+    <footer>
+      <span>Rocky Top Outfitters · BZAN 545</span>
+      <span>Data captured July–August 2026</span>
+    </footer>
+  </body>
+</html>
