@@ -1,6 +1,6 @@
 # Group 5 BZAN 545 data pipeline
 
-**[View the project showcase](https://rubenrodriguez23.github.io/Group5-Project-BZAN545/)**
+**[View the project showcase](https://caden-collier.github.io/Group5-Project-BZAN545/)**
 
 This project captures daily orders, records each ingestion attempt, and adds
 store-level weather data. The repository uses a simple bronze, silver, and gold
